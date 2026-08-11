@@ -44,7 +44,7 @@
       'id': ''
     });
     $('body').append($mobile_nav);
-      $('body').prepend('<button type="button" id="mobile-nav-toggle" aria-label="Abrir menú de navegación"><i class="fa fa-bars"></i></button>');
+      $('body').prepend('<button type="button" id="mobile-nav-toggle" aria-label="Abrir menï¿½ de navegaciï¿½n"><i class="fa fa-bars"></i></button>');
     $('body').append('<div id="mobile-body-overly"></div>');
     $('#mobile-nav').find('.menu-has-children').prepend('<i class="fa fa-chevron-down"></i>');
 
@@ -138,26 +138,6 @@
         main_nav.find('a[href="#'+$(this).attr('id')+'"]').parent('li').addClass('menu-active menu-item-active');
       }
     });
-  });
-
-  // Intro carousel
-  var introCarousel = $(".carousel");
-  var introCarouselIndicators = $(".carousel-indicators");
-  introCarousel.find(".carousel-inner").children(".carousel-item").each(function(index) {
-    (index === 0) ?
-    introCarouselIndicators.append("<li data-target='#introCarousel' data-slide-to='" + index + "' class='active'></li>") :
-    introCarouselIndicators.append("<li data-target='#introCarousel' data-slide-to='" + index + "'></li>");
-
-    $(this).css("background-image", "url('" + $(this).children('.carousel-background').children('img').attr('src') +"')");
-    $(this).children('.carousel-background').remove();
-  });
-
-  $(".carousel").swipe({
-    swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
-      if (direction == 'left') $(this).carousel('next');
-      if (direction == 'right') $(this).carousel('prev');
-    },
-    allowPageScroll:"vertical"
   });
 
   // Skills section

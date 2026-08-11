@@ -60,87 +60,17 @@
     <!--==========================
           Intro Section
         ============================-->
-    <!-- ✅ PRELOAD de imagen principal -->
-    <link rel="preload" as="image" href="img/intro-carousel/5.webp" type="image/webp">
-
     <section id="intro">
         <div class="intro-container">
-            <div id="introCarousel" class="carousel slide carousel-fade" data-ride="carousel">
-                <ol class="carousel-indicators"></ol>
-                <div class="carousel-inner" role="listbox" aria-label="Carrusel de imágenes">
-
-                    <!-- Imagen destacada -->
-                    <div class="carousel-item active" role="option" aria-selected="true">
-                        <div class="carousel-background">
-                            <img src="img/intro-carousel/5.webp" alt="Somos Profesionales" width="1920" height="1080" decoding="async">
-                        </div>
-                        <div class="carousel-container">
-                            <div class="carousel-content">
-                                <h2>Somos Profesionales</h2>
-                                <p>Bigcleans busca establecer liderazgo en rubro de servicios de aseo integral, entregando soluciones personalizadas a los clientes y de calidad.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Resto de imágenes -->
-                    <div class="carousel-item" role="option" aria-selected="false">
-                        <div class="carousel-background">
-                            <img src="img/intro-carousel/2.webp" alt="Nuestra Misión" width="1920" height="1080" decoding="async" loading="lazy">
-                        </div>
-                        <div class="carousel-container">
-                            <div class="carousel-content">
-                                <h2>Nuestra Mision</h2>
-                                <p>Entregar servicios integrales de aseo a nuestros clientes, minimizando nuestra huella de carbono en el planeta utilizando productos químicos biodegradables con altos estándares de seguridad y calidad.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item" role="option" aria-selected="false">
-                        <div class="carousel-background">
-                            <img src="img/intro-carousel/3.webp" alt="Políticas de Servicio" width="1920" height="1080" decoding="async" loading="lazy">
-                        </div>
-                        <div class="carousel-container">
-                            <div class="carousel-content">
-                                <h2>Políticas de Servicio</h2>
-                                <p>Brindar un excelente servicio, con altos índices de calidad a nuestros clientes.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item" role="option" aria-selected="false">
-                        <div class="carousel-background">
-                            <img src="img/intro-carousel/4.webp" alt="Mejora Continua" width="1920" height="1080" decoding="async" loading="lazy">
-                        </div>
-                        <div class="carousel-container">
-                            <div class="carousel-content">
-                                <h2>Mejora Continua</h2>
-                                <p>Trabajar de manera eficiente y eficaz, mejorando continuamente nuestros servicios.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="carousel-item" role="option" aria-selected="false">
-                        <div class="carousel-background">
-                            <img src="img/intro-carousel/1.webp" alt="Responsabilidad Ambiental" width="1920" height="1080" decoding="async" loading="lazy">
-                        </div>
-                        <div class="carousel-container">
-                            <div class="carousel-content">
-                                <h2>Responsabilidad Ambiental</h2>
-                                <p>Ser reconocidos como una empresa líder en el servicio de aseo integral, que utiliza productos químicos de limpieza biodegradables y amigables con el medio ambiente.</p>
-                            </div>
-                        </div>
-                    </div>
-
+            <video class="intro-video" autoplay muted loop playsinline poster="img/intro-carousel/hero-poster.webp">
+                <source src="video/hero.mp4" type="video/mp4">
+            </video>
+            <div class="intro-overlay"></div>
+            <div class="carousel-container">
+                <div class="carousel-content">
+                    <h2>Somos Profesionales</h2>
+                    <p>Bigcleans busca establecer liderazgo en rubro de servicios de aseo integral, entregando soluciones personalizadas a los clientes y de calidad.</p>
                 </div>
-
-                <a class="carousel-control-prev" href="#introCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon ion-chevron-left" aria-hidden="true"></span>
-                    <span class="sr-only">Anterior</span>
-                </a>
-                <a class="carousel-control-next" href="#introCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon ion-chevron-right" aria-hidden="true"></span>
-                    <span class="sr-only">Siguiente</span>
-                </a>
             </div>
         </div>
     </section>
