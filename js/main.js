@@ -10,6 +10,33 @@
     }
   });
 
+  // Intro copy holds back until the branded shots at the head of the video have played,
+  // and re-hides on every loop so the logo is never covered.
+  var $intro = $('#intro');
+  var introVideo = $intro.find('.intro-video').get(0);
+  var introLogoEnd = 0.5; // seconds of branding footage at the start of hero.mp4
+
+  function showIntroText() {
+    $intro.addClass('intro-text-visible');
+  }
+
+  if (!introVideo) {
+    showIntroText();
+  } else {
+    $(introVideo)
+      .on('timeupdate', function () {
+        $intro.toggleClass('intro-text-visible', introVideo.currentTime >= introLogoEnd);
+      })
+      .on('error', showIntroText);
+
+    // Autoplay can be blocked and the file can be missing - never leave the copy hidden.
+    setTimeout(function () {
+      if (introVideo.paused || !introVideo.currentTime) {
+        showIntroText();
+      }
+    }, introLogoEnd * 1000 + 1500);
+  }
+
   // Back to top button
   $(window).scroll(function() {
     if ($(this).scrollTop() > 100) {
@@ -153,18 +180,92 @@
     time: 1000
   });
 
-  // Porfolio isotope and filter
-  var portfolioIsotope = $('.portfolio-container').isotope({
-    itemSelector: '.portfolio-item',
-    layoutMode: 'fitRows'
-  });
+  // Portfolio 360 ring: the items sit on the face of a cylinder that spins on its axis
+  var $ringViewport = $('.portfolio-ring-viewport');
+  var $ring = $('.portfolio-ring');
+  var $ringItems = $ring.find('.portfolio-ring-item');
+  var $ringCounter = $('.portfolio-carousel-counter .current');
+  var ringCount = $ringItems.length;
 
-  $('#portfolio-flters li').on( 'click', function() {
-    $("#portfolio-flters li").removeClass('filter-active');
-    $(this).addClass('filter-active');
+  if (ringCount) {
+    var ringStep = 360 / ringCount;   // angle between two neighbouring items
+    var ringRadius = 0;               // distance from the axis, derived from the item width
+    var ringIndex = 0;                // item currently facing the visitor
+    var ringTimer = null;
 
-    portfolioIsotope.isotope({ filter: $(this).data('filter') });
-  });
+    // Edge-to-edge radius, widened so the cards sit apart instead of forming a solid wall.
+    // A narrow screen gets a tighter ring, otherwise the neighbours fall off both edges
+    // and the curve stops reading as 3D.
+    function layoutRing() {
+      var itemWidth = $ringItems.first().outerWidth();
+      var spread = $(window).width() < 768 ? 1.1 : 1.3;
+      ringRadius = Math.round((itemWidth / 2) / Math.tan(Math.PI / ringCount) * spread);
+
+      $ringItems.each(function (i) {
+        $(this).css('transform', 'rotateY(' + (i * ringStep) + 'deg) translateZ(' + ringRadius + 'px)');
+      });
+
+      spinRing();
+    }
+
+    // Spinning the whole ring backwards brings item `ringIndex` to the front.
+    function spinRing() {
+      $ring.css('transform', 'translateZ(-' + ringRadius + 'px) rotateY(' + (-ringIndex * ringStep) + 'deg)');
+
+      var front = ((ringIndex % ringCount) + ringCount) % ringCount;
+
+      $ringItems.each(function (i) {
+        // shortest angular distance to the front, so item 0 and item 20 read as neighbours
+        var offset = i - front;
+        if (offset > ringCount / 2) { offset -= ringCount; }
+        if (offset < -ringCount / 2) { offset += ringCount; }
+
+        var steps = Math.abs(offset);
+        $(this)
+          .toggleClass('is-front', steps === 0)
+          .css('opacity', steps > 3 ? 0 : Math.max(1 - steps * 0.3, 0));
+      });
+
+      $ringCounter.text(front + 1);
+    }
+
+    function ringGo(delta) {
+      ringIndex += delta;
+      spinRing();
+    }
+
+    function startRingAutoplay() {
+      stopRingAutoplay();
+      ringTimer = setInterval(function () { ringGo(1); }, 4000);
+    }
+
+    function stopRingAutoplay() {
+      if (ringTimer) { clearInterval(ringTimer); ringTimer = null; }
+    }
+
+    $('.portfolio-ring-prev').on('click', function () { ringGo(-1); startRingAutoplay(); });
+    $('.portfolio-ring-next').on('click', function () { ringGo(1); startRingAutoplay(); });
+
+    $ringViewport.hover(stopRingAutoplay, startRingAutoplay);
+
+    if ($.fn.swipe) {
+      $ringViewport.swipe({
+        swipeLeft: function () { ringGo(1); },
+        swipeRight: function () { ringGo(-1); },
+        allowPageScroll: 'vertical',
+        threshold: 40
+      });
+    }
+
+    layoutRing();
+    startRingAutoplay();
+
+    var ringResizeTimer = null;
+    $(window).on('resize', function () {
+      clearTimeout(ringResizeTimer);
+      ringResizeTimer = setTimeout(layoutRing, 200);
+    });
+  }
 
   // Clients carousel (uses the Owl Carousel library)
   $(".clients-carousel").owlCarousel({

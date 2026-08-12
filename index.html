@@ -6,11 +6,29 @@
     <title>BigCleans :: Aseo Integral</title>
     <!--<meta content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport" >-->
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="" name="keywords" />
-    <meta name="description" content="Bigcleans ofrece servicios profesionales de aseo integral, comprometidos con la calidad, la eficiencia y el cuidado del medio ambiente.">
+    <meta name="description" content="Bigcleans ofrece servicios profesionales de aseo integral en Santiago: oficinas, casas, departamentos, fabricas, alfombras, tapiceria y sanitizacion. Atencion 24/7.">
+    <link href="https://bigcleans.cl/" rel="canonical" />
+    <meta content="#0000ff" name="theme-color" />
+
+    <!-- Vista previa al compartir (WhatsApp, Facebook, Instagram) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bigcleans" />
+    <meta property="og:locale" content="es_CL" />
+    <meta property="og:url" content="https://bigcleans.cl/" />
+    <meta property="og:title" content="Bigcleans | Aseo Integral en Santiago" />
+    <meta property="og:description" content="Limpieza profesional de oficinas, casas, departamentos, fabricas y locales. Alfombras, tapiceria y sanitizacion. Atencion 24/7 en Santiago." />
+    <meta property="og:image" content="https://bigcleans.cl/img/og-bigcleans.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Bigcleans - Aseo integral en Santiago de Chile" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Bigcleans | Aseo Integral en Santiago" />
+    <meta name="twitter:description" content="Limpieza profesional de oficinas, casas, departamentos, fabricas y locales. Atencion 24/7 en Santiago." />
+    <meta name="twitter:image" content="https://bigcleans.cl/img/og-bigcleans.jpg" />
 
     <!-- Favicons -->
     <link href="img/favicon_bigcleans.png" rel="icon" />
+    <link href="img/favicon_bigcleans.png" rel="apple-touch-icon" />
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet" />
     <!-- Bootstrap CSS File -->
@@ -23,6 +41,50 @@
     <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
     <!-- Main Stylesheet File -->
     <link href="css/style.css?v=1" rel="stylesheet" />
+
+    <!-- Datos del negocio para Google (ficha local / resultados enriquecidos) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Bigcleans",
+      "description": "Empresa de aseo integral en Santiago de Chile. Limpieza de oficinas, casas, departamentos, fabricas, locales comerciales, alfombras, tapiceria y sanitizacion.",
+      "url": "https://bigcleans.cl/",
+      "logo": "https://bigcleans.cl/img/Logo bigcleans.png",
+      "image": "https://bigcleans.cl/img/og-bigcleans.jpg",
+      "telephone": "+56961399502",
+      "email": "contacto@bigcleans.cl",
+      "priceRange": "$$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Santiago",
+        "addressCountry": "CL"
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Santiago" },
+        { "@type": "AdministrativeArea", "name": "Region de Valparaiso" }
+      ],
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "00:00",
+        "closes": "23:59"
+      },
+      "sameAs": ["https://www.instagram.com/bigcleans/"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Servicios de aseo",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Limpieza de oficinas y empresas" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Limpieza de casas y departamentos" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Desinfeccion y sanitizacion" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Lavado de alfombras y tapiceria" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Limpieza de fabricas y locales comerciales" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decapado de pisos" } }
+        ]
+      }
+    }
+    </script>
 </head>
 <body>
     <!--==========================
@@ -34,7 +96,7 @@
                 <!--<h1><a href="#intro" class="scrollto"></a></h1>-->
                 <!-- Uncomment below if you prefer to use an image logo -->
                 <a aria-label="Ir al inicio" href="#intro">
-                    <img alt="Bigcleans Logo" src="img/Logo bigcleans.png" title="Bigcleans" />
+                    <img alt="Bigcleans - Aseo integral en Santiago" src="img/Logo bigcleans.png" title="Bigcleans" />
                 </a>
             </div>
             <nav id="nav-menu-container">
@@ -62,13 +124,19 @@
         ============================-->
     <section id="intro">
         <div class="intro-container">
-            <video class="intro-video" autoplay muted loop playsinline poster="img/intro-carousel/hero-poster.webp">
-                <source src="video/hero.mp4" type="video/mp4">
-            </video>
+            <video class="intro-video" autoplay muted loop playsinline preload="metadata" poster="img/intro-carousel/hero-poster.webp"></video>
+            <script>
+                // Assign the source inline, before the browser starts fetching, so a phone
+                // never downloads the desktop encode (5.5 MB vs 9.4 MB).
+                (function () {
+                    var v = document.querySelector('.intro-video');
+                    v.src = window.innerWidth < 768 ? 'video/hero-540.mp4' : 'video/hero-720.mp4';
+                })();
+            </script>
             <div class="intro-overlay"></div>
             <div class="carousel-container">
                 <div class="carousel-content">
-                    <h2>Somos Profesionales</h2>
+                    <h1>Somos Profesionales</h1>
                     <p>Bigcleans busca establecer liderazgo en rubro de servicios de aseo integral, entregando soluciones personalizadas a los clientes y de calidad.</p>
                 </div>
             </div>
@@ -84,17 +152,17 @@
                 <div class="row">
                     <div class="col-lg-4 box-bg">
                         <i class="ion-ribbon-b"></i>
-                        <h4 class="title"><a href="">Servicio garantizado</a></h4>
+                        <h4 class="title">Servicio garantizado</h4>
                         <p class="description">Garatizamos todos nuestros servicios, para que tu experiencia sea la mejor.</p>
                     </div>
                     <div class="col-lg-4 box-bg">
                         <i class="ion-ios-stopwatch-outline"></i>
-                        <h4 class="title"><a href="">Atencion 24/7</a></h4>
+                        <h4 class="title">Atencion 24/7</h4>
                         <p class="description">Somos completamente responsables y rigurosos en los tiempos de entregas de nuestros servicios, Ademas trabajamos en todo horario 24/7.</p>
                     </div>
                     <div class="col-lg-4 box-bg">
                         <i class="ion-ios-heart-outline"></i>
-                        <h4 class="title"><a href="">Trabajamos con amor</a></h4>
+                        <h4 class="title">Trabajamos con amor</h4>
                         <p class="description">Cada trabajo realizado por nuestra empresa, se caracteriza por una constante dedicación esfuerzo y profesionalismo por entregar lo mejor de nosotros.  </p>
                     </div>
                 </div>
@@ -124,7 +192,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.2s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/desinfeccion_sanitizacion/desinfeccion.webp" />
+                                <img loading="lazy" alt="Bigcleans: desinfeccion y sanitizacion" class="img-fluid" src="img/nosotros/desinfeccion_sanitizacion/desinfeccion.webp" />
                                 <a class="link-preview" data-lightbox="desinfeccion_sanitizacion" data-title="desinfeccion sanitizacion" href="img/nosotros/desinfeccion_sanitizacion/1.webp" title="Ver"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -138,7 +206,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.4s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/oficinas_empresas/oficinas_empresas.webp" />
+                                <img loading="lazy" alt="Bigcleans: limpieza de oficinas y empresas" class="img-fluid" src="img/nosotros/oficinas_empresas/oficinas_empresas.webp" />
                                 <a class="link-preview" data-lightbox="oficinas_empresas" data-title="oficinas empresas" href="img/nosotros/oficinas_empresas/1.webp" title="Ver"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -152,7 +220,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.6s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/fabricas/fabricas.webp" />
+                                <img loading="lazy" alt="Bigcleans: limpieza de fabricas" class="img-fluid" src="img/nosotros/fabricas/fabricas.webp" />
                                 <a class="link-preview" data-lightbox="fabricas" data-title="fabricas" href="img/nosotros/fabricas/1.webp" title="Ver"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -166,7 +234,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.2s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/locales_comerciales/locales_comerciales.webp" />
+                                <img loading="lazy" alt="Bigcleans: limpieza de locales comerciales" class="img-fluid" src="img/nosotros/locales_comerciales/locales_comerciales.webp" />
                                 <a class="link-preview" data-lightbox="locales_comerciales" data-title="locales comerciales" href="img/nosotros/locales_comerciales/1.webp" title="Ver"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -180,7 +248,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-web wow fadeInUp" data-wow-delay="0.4s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/casona_full/casonas.webp" />
+                                <img loading="lazy" alt="Bigcleans: aseo integral de casona" class="img-fluid" src="img/nosotros/casona_full/casonas.webp" />
                                 <a class="link-preview" data-lightbox="casona_full" data-title="casona full" href="img/nosotros/casona_full/1.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -194,7 +262,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.6s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/sanitizacion_covid/sanitizacion_covid.webp" />
+                                <img loading="lazy" alt="Bigcleans: sanitizacion post covid" class="img-fluid" src="img/nosotros/sanitizacion_covid/sanitizacion_covid.webp" />
                                 <a class="link-preview" data-lightbox="sanitizacion_covid" data-title="sanitizacion covid" href="img/nosotros/sanitizacion_covid/1.webp" title="Ver"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -208,7 +276,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.2s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/casa_habitada/casa_habitada.webp" />
+                                <img loading="lazy" alt="Bigcleans: aseo de casa habitada" class="img-fluid" src="img/nosotros/casa_habitada/casa_habitada.webp" />
                                 <a class="link-preview" data-lightbox="casa_habitada" data-title="casa habitada" href="img/nosotros/casa_habitada/1.webp" title="Ver"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -222,7 +290,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.4s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/casa_vacia/casa_vacia.webp" />
+                                <img loading="lazy" alt="Bigcleans: aseo de casa vacia" class="img-fluid" src="img/nosotros/casa_vacia/casa_vacia.webp" />
                                 <a class="link-preview" data-lightbox="casa_vacia" data-title="casa vacia" href="img/nosotros/casa_vacia/1.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -236,7 +304,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-web wow fadeInUp" data-wow-delay="0.6s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/depa_habitado/depa_habitado.webp" />
+                                <img loading="lazy" alt="Bigcleans: aseo de departamento habitado" class="img-fluid" src="img/nosotros/depa_habitado/depa_habitado.webp" />
                                 <a class="link-preview" data-lightbox="depa_habitado" data-title="depa habitado" href="img/nosotros/depa_habitado/1.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -250,7 +318,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.2s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/depa_vacio/depa_vacio.webp" />
+                                <img loading="lazy" alt="Bigcleans: aseo de departamento vacio" class="img-fluid" src="img/nosotros/depa_vacio/depa_vacio.webp" />
                                 <a class="link-preview" data-lightbox="depa_vacio" data-title="depa vacio" href="img/nosotros/depa_vacio/1.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -264,7 +332,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.4s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/decapado/decapado.webp" />
+                                <img loading="lazy" alt="Bigcleans: decapado de pisos" class="img-fluid" src="img/nosotros/decapado/decapado.webp" />
                                 <a class="link-preview" data-lightbox="decapado" data-title="decapado" href="img/nosotros/decapado/1.webp" title="Ver"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -278,7 +346,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.6s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/alfombras/alfombras.webp" />
+                                <img loading="lazy" alt="Bigcleans: lavado de alfombras" class="img-fluid" src="img/nosotros/alfombras/alfombras.webp" />
                                 <a class="link-preview" data-lightbox="alfombras" data-title="alfombras" href="img/nosotros/alfombras/1.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -292,7 +360,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.2s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/tapiceria/tapiceria.webp" />
+                                <img loading="lazy" alt="Bigcleans: limpieza de tapiceria" class="img-fluid" src="img/nosotros/tapiceria/tapiceria.webp" />
                                 <a class="link-preview" data-lightbox="tapiceria" data-title="tapiceria" href="img/nosotros/tapiceria/1.webp" title="Ver"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -306,7 +374,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.4s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/car_wash/car_wash.webp" />
+                                <img loading="lazy" alt="Bigcleans: lavado de autos" class="img-fluid" src="img/nosotros/car_wash/car_wash.webp" />
                                 <a class="link-preview" data-lightbox="car_wash" data-title="car wash" href="img/nosotros/car_wash/1.webp" title="Ver"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -320,7 +388,7 @@
                     <div class="col-lg-4 col-md-6 servicios-item filter-app wow fadeInUp" data-wow-delay="0.6s">
                         <div class="servicios-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/nosotros/quinta_region/quinta_region.webp" />
+                                <img loading="lazy" alt="Bigcleans: servicios en la Quinta Region" class="img-fluid" src="img/nosotros/quinta_region/quinta_region.webp" />
                                 <a class="link-preview" data-lightbox="quinta_region" data-title="App 1" href="img/nosotros/quinta_region/1.webp" title="Ver"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
@@ -344,71 +412,71 @@
                     <p>
                         Presiona la foto para ver sus testimonios!
                     </p>
-                    <img alt="" class="testimonial-img" src="img/manita.png" style="margin-left: 45%;" />
+                    <img loading="lazy" alt="" class="testimonial-img" src="img/manita.png" style="margin-left: 45%;" />
                 </header>
                 <div class="owl-carousel testimonials-carousel">
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODcwMjAyMjc3MzYyODA2?story_media_id=2029089738431912059_5591121090&amp;igshid=q1sxvi34b9ba" target="_blank"><img alt="" class="testimonial-img" src="img/vips/cuchillo.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODcwMjAyMjc3MzYyODA2?story_media_id=2029089738431912059_5591121090&amp;igshid=q1sxvi34b9ba" target="_blank"><img loading="lazy" alt="Sebastian Eyzaguirre, cliente de Bigcleans" class="testimonial-img" src="img/vips/cuchillo.webp" /></a>
                         <h3>Sebastian Eyzaguirre</h3>
                         <h4>Periodista</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MTQzNTgwNDgxMDY1NTk5?story_media_id=2350345129041868812_5591121090&amp;igshid=s8jsnbtehkd2" target="_blank"><img alt="" class="testimonial-img" src="img/vips/abogada.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MTQzNTgwNDgxMDY1NTk5?story_media_id=2350345129041868812_5591121090&amp;igshid=s8jsnbtehkd2" target="_blank"><img loading="lazy" alt="Helhue Sukni, cliente de Bigcleans" class="testimonial-img" src="img/vips/abogada.webp" /></a>
                         <h3>Helhue Sukni</h3>
                         <h4>Abogada</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/p/BtjPatyHc_e/?igshid=z55wrsw7snqb" target="_blank"><img alt="" class="testimonial-img" src="img/vips/anita.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/p/BtjPatyHc_e/?igshid=z55wrsw7snqb" target="_blank"><img loading="lazy" alt="Anita Alvarado, cliente de Bigcleans" class="testimonial-img" src="img/vips/anita.webp" /></a>
                         <h3>Anita Alvarado</h3>
                         <h4>Empresaria</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODUxODEzNDExMzkxMTU4?story_media_id=2014153186853279648_5591121090&amp;igshid=8kgxc7x28b7j" target="_blank"><img alt="" class="testimonial-img" src="img/vips/botota.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODUxODEzNDExMzkxMTU4?story_media_id=2014153186853279648_5591121090&amp;igshid=8kgxc7x28b7j" target="_blank"><img loading="lazy" alt="Botota Fox, cliente de Bigcleans" class="testimonial-img" src="img/vips/botota.webp" /></a>
                         <h3>Botota Fox</h3>
                         <h4>Artista</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTkzNzQ5MzE4MTU1NzU0?story_media_id=1963929020091131473_5591121090&amp;igshid=a1smhx0owaz7" target="_blank"><img alt="" class="testimonial-img" src="img/vips/bruno.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTkzNzQ5MzE4MTU1NzU0?story_media_id=1963929020091131473_5591121090&amp;igshid=a1smhx0owaz7" target="_blank"><img loading="lazy" alt="Bruno Zanetti, cliente de Bigcleans" class="testimonial-img" src="img/vips/bruno.webp" /></a>
                         <h3>Bruno Zanetti</h3>
                         <h4>Bailarin</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MTYzNjQ0NDI3MTkwNzMy?story_media_id=2530209583555417326_5591121090&amp;igshid=1ueh0fu9onldp" target="_blank"><img alt="" class="testimonial-img" src="img/vips/chancho.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MTYzNjQ0NDI3MTkwNzMy?story_media_id=2530209583555417326_5591121090&amp;igshid=1ueh0fu9onldp" target="_blank"><img loading="lazy" alt="Lalo Chancho en Piedra, cliente de Bigcleans" class="testimonial-img" src="img/vips/chancho.webp" /></a>
                         <h3>Lalo Chancho en Piedra</h3>
                         <h4>Musico</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDY4MzQ4MDQ0MDc0ODEz?story_media_id=2070537502457717271_5591121090&amp;igshid=hplnerqcbg8g" target="_blank"><img alt="" class="testimonial-img" src="img/vips/gallina.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDY4MzQ4MDQ0MDc0ODEz?story_media_id=2070537502457717271_5591121090&amp;igshid=hplnerqcbg8g" target="_blank"><img loading="lazy" alt="Kari y Gallina, cliente de Bigcleans" class="testimonial-img" src="img/vips/gallina.webp" /></a>
                         <h3>Kari y Gallina </h3>
                         <h4>Influencers</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODQyMzAyNDA3NTUxMjA3?igshid=2nngxm3hnwcm&amp;story_media_id=2516895357952055753_5591121090" target="_blank"><img alt="" class="testimonial-img" src="img/vips/vanessa.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3ODQyMzAyNDA3NTUxMjA3?igshid=2nngxm3hnwcm&amp;story_media_id=2516895357952055753_5591121090" target="_blank"><img loading="lazy" alt="Vanessa Borghi, cliente de Bigcleans" class="testimonial-img" src="img/vips/vanessa.webp" /></a>
                         <h3>Vanessa Borghi</h3>
                         <h4>Modelo</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDg1MjkxOTU3MDQyMTYx?story_media_id=2094480844656486493_5591121090&amp;igshid=1npr7qirz7urr" target="_blank"><img alt="" class="testimonial-img" src="img/vips/pamela.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDg1MjkxOTU3MDQyMTYx?story_media_id=2094480844656486493_5591121090&amp;igshid=1npr7qirz7urr" target="_blank"><img loading="lazy" alt="Lore Gálvez, cliente de Bigcleans" class="testimonial-img" src="img/vips/pamela.webp" /></a>
                         <h3>Lore Gálvez</h3>
                         <h4>Modelo</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MTYzNjQ0NDI3MTkwNzMy?story_media_id=2530209583555417326_5591121090&amp;igshid=1ueh0fu9onldp" target="_blank"><img alt="" class="testimonial-img" src="img/vips/influ.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MTYzNjQ0NDI3MTkwNzMy?story_media_id=2530209583555417326_5591121090&amp;igshid=1ueh0fu9onldp" target="_blank"><img loading="lazy" alt="Powertefi, cliente de Bigcleans" class="testimonial-img" src="img/vips/influ.webp" /></a>
                         <h3>Powertefi</h3>
                         <h4>Influencer</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/p/B7dff0knB_0/?igshid=fbbzknf4k5ks" target="_blank"><img alt="" class="testimonial-img" src="img/vips/influ2.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/p/B7dff0knB_0/?igshid=fbbzknf4k5ks" target="_blank"><img loading="lazy" alt="Karen y Ricardo, cliente de Bigcleans" class="testimonial-img" src="img/vips/influ2.webp" /></a>
                         <h3>Karen y Ricardo</h3>
                         <h4>Bailarines</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDg5NDMxNDM4MTkzNTU4?story_media_id=2230770245266468803_5591121090&amp;igshid=1tshqo621gjdv" target="_blank"><img alt="" class="testimonial-img" src="img/vips/influ3.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE4MDg5NDMxNDM4MTkzNTU4?story_media_id=2230770245266468803_5591121090&amp;igshid=1tshqo621gjdv" target="_blank"><img loading="lazy" alt="Vale Dávila, cliente de Bigcleans" class="testimonial-img" src="img/vips/influ3.webp" /></a>
                         <h3>Vale Dávila</h3>
                         <h4>Influencer</h4>
                     </div>
                     <div class="testimonial-item">
-                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTEyMzI4NDk5MzIzODQ1?story_media_id=2095332402411672358_5591121090&amp;igshid=1eqa45r1qnkr9" target="_blank"><img alt="" class="testimonial-img" src="img/vips/argentina.webp" /></a>
+                        <a aria-label="Enlace" href="https://www.instagram.com/s/aGlnaGxpZ2h0OjE3OTEyMzI4NDk5MzIzODQ1?story_media_id=2095332402411672358_5591121090&amp;igshid=1eqa45r1qnkr9" target="_blank"><img loading="lazy" alt="Yamila Reyna, cliente de Bigcleans" class="testimonial-img" src="img/vips/argentina.webp" /></a>
                         <h3>Yamila Reyna</h3>
                         <h4>Actriz</h4>
                     </div>
@@ -421,7 +489,7 @@
         <section class="wow fadeIn" id="call-to-action">
             <div class="container text-center">
                 <h3>Siguenos en Instagram !</h3>
-                <a aria-label="Enlace" href="https://www.instagram.com/bigcleans/?hl=es-la" target="_blank"><img alt="" src="img/INSTA BCS.png" title="Bigcleans_insta" /></a>
+                <a aria-label="Enlace" href="https://www.instagram.com/bigcleans/?hl=es-la" target="_blank"><img loading="lazy" alt="Instagram de Bigcleans" src="img/INSTA BCS.png" title="Bigcleans_insta" /></a>
             </div>
         </section><!-- #call-to-action -->
         <!--==========================
@@ -455,7 +523,7 @@
         </section>
         <section class="wow fadeIn" id="banner-section">
             <div class="banner">
-                <img src="img/banner.webp" />
+                <img loading="lazy" alt="Servicios de aseo integral de Bigcleans: sanitizacion, oficinas, casas y locales" src="img/banner.webp" />
             </div>
         </section>
         <!-- #facts -->
@@ -467,188 +535,184 @@
                 <header class="section-header">
                     <h3 class="section-title">Nuestros trabajos (antes y despues)</h3>
                 </header>
-                <br />
-                <br />
-                <br />
-                <!--<div class="row">
-                                  <div class="col-lg-12">
-                                    <ul id="portfolio-flters">
-                                      <li data-filter="*" class="filter-active">All</li>
-                                      <li data-filter=".filter-app">App</li>
-                                      <li data-filter=".filter-card">Card</li>
-                                      <li data-filter=".filter-web">Web</li>
-                                    </ul>
-                                  </div>
-                                </div>-->
-                <div class="row portfolio-container">
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+                <div class="portfolio-ring-viewport">
+                    <div class="portfolio-ring">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="1">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/22.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (1)" class="img-fluid" src="img/portfolio/22.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/22.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="2">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/23.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (2)" class="img-fluid" src="img/portfolio/23.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/23.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="3">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/24.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (3)" class="img-fluid" src="img/portfolio/24.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/24.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="4">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/1.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (4)" class="img-fluid" src="img/portfolio/1.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/1.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="5">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/2.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (5)" class="img-fluid" src="img/portfolio/2.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/2.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="6">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/3.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (6)" class="img-fluid" src="img/portfolio/3.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/3.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="7">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/4.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (7)" class="img-fluid" src="img/portfolio/4.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/4.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="8">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/5.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (8)" class="img-fluid" src="img/portfolio/5.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/5.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-app wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="9">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/6.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (9)" class="img-fluid" src="img/portfolio/6.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/6.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="10">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/7.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (10)" class="img-fluid" src="img/portfolio/7.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/7.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="11">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/8.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (11)" class="img-fluid" src="img/portfolio/8.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/8.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="12">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/9.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (12)" class="img-fluid" src="img/portfolio/9.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/9.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="13">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/11.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (13)" class="img-fluid" src="img/portfolio/11.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/11.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="14">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/12.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (14)" class="img-fluid" src="img/portfolio/12.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/12.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="15">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/13.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (15)" class="img-fluid" src="img/portfolio/13.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/13.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="16">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/14.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (16)" class="img-fluid" src="img/portfolio/14.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/14.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="17">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/15.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (17)" class="img-fluid" src="img/portfolio/15.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/15.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="18">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/16.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (18)" class="img-fluid" src="img/portfolio/16.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/16.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="19">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/17.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (19)" class="img-fluid" src="img/portfolio/17.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/17.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-card wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="20">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/18.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (20)" class="img-fluid" src="img/portfolio/18.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/18.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-6 portfolio-item filter-web wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="portfolio-item portfolio-ring-item" data-portfolio-index="21">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img alt="" class="img-fluid" src="img/portfolio/19.webp" />
+                                <img loading="lazy" alt="Antes y despues de un trabajo de aseo realizado por Bigcleans (21)" class="img-fluid" src="img/portfolio/19.webp" />
                                 <a class="link-preview" data-lightbox="portfolio" data-title="antes y despues" href="img/portfolio/19.webp" title="Preview"><i class="ion ion-eye"></i></a>
                             </figure>
                         </div>
                     </div>
+                </div>
+                    <div class="portfolio-ring-nav">
+                        <button type="button" class="portfolio-ring-prev" aria-label="Anterior"><i class="ion-ios-arrow-left"></i></button>
+                        <button type="button" class="portfolio-ring-next" aria-label="Siguiente"><i class="ion-ios-arrow-right"></i></button>
+                    </div>
+                </div>
+                <div class="portfolio-carousel-counter">
+                    <span class="current">1</span><span class="counter-sep">/</span><span class="total">21</span>
                 </div>
             </div>
         </section><!-- #portfolio -->
@@ -663,14 +727,14 @@
                     </header>
 
                     <div class="owl-carousel clients-carousel">
-                      <img src="img/clients/test_logo.png" alt="">
-                      <img src="img/clients/client-2.png" alt="">
-                      <img src="img/clients/client-3.png" alt="">
-                      <img src="img/clients/client-4.png" alt="">
-                      <img src="img/clients/client-5.png" alt="">
-                      <img src="img/clients/client-6.png" alt="">
-                      <img src="img/clients/client-7.png" alt="">
-                      <img src="img/clients/client-8.png" alt="">
+                      <img loading="lazy" src="img/clients/test_logo.png" alt="" />
+                      <img loading="lazy" src="img/clients/client-2.png" alt="" />
+                      <img loading="lazy" src="img/clients/client-3.png" alt="" />
+                      <img loading="lazy" src="img/clients/client-4.png" alt="" />
+                      <img loading="lazy" src="img/clients/client-5.png" alt="" />
+                      <img loading="lazy" src="img/clients/client-6.png" alt="" />
+                      <img loading="lazy" src="img/clients/client-7.png" alt="" />
+                      <img loading="lazy" src="img/clients/client-8.png" alt="" />
                     </div>
 
                   </div>
@@ -685,10 +749,10 @@
                     <h3>Equipo</h3>
                 </div>
                 <div class="row">
-                    <img alt="" src="img/team.webp" />
+                    <img loading="lazy" alt="Equipo de trabajo de Bigcleans" src="img/team.webp" />
                     <!--<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
                                         <div class="member">
-                                          <img src="img/team-2.jpg" class="img-fluid" alt="">
+                                          <img loading="lazy" src="img/team-2.jpg" class="img-fluid" alt="" />
                                           <div class="member-info">
                                             <div class="member-info-content">
                                               <h4>Sarah Jhonson</h4>
@@ -705,7 +769,7 @@
                                         </div>-->
                     <!--<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                                           <div class="member">
-                                            <img src="img/team-3.jpg" class="img-fluid" alt="">
+                                            <img loading="lazy" src="img/team-3.jpg" class="img-fluid" alt="" />
                                             <div class="member-info">
                                               <div class="member-info-content">
                                                 <h4>William Anderson</h4>
@@ -722,7 +786,7 @@
                                         </div>-->
                     <!--<div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                                           <div class="member">
-                                            <img src="img/team-4.jpg" class="img-fluid" alt="">
+                                            <img loading="lazy" src="img/team-4.jpg" class="img-fluid" alt="" />
                                             <div class="member-info">
                                               <div class="member-info-content">
                                                 <h4>Amanda Jepson</h4>
@@ -748,53 +812,67 @@
                 <div class="section-header">
                     <h3>CONTACTANOS</h3>
                 </div>
-                <div class="row contact-info">
-                    <div class="col-md-4">
-                        <div class="contact-address">
-                            <i class="ion-ios-location-outline"></i>
-                            <h3>Ubicación</h3>
-                            <address>Santiago, CHILE</address>
+                <div class="row contact-layout">
+                    <div class="col-lg-5">
+                        <div class="contact-panel contact-details">
+                            <h4>Hablemos de tu proyecto</h4>
+                            <p class="contact-lead">Cuentanos que necesitas y te respondemos a la brevedad con una propuesta a la medida.</p>
+                            <ul class="contact-list">
+                                <li>
+                                    <span class="contact-icon"><i class="ion-ios-location-outline"></i></span>
+                                    <div class="contact-data">
+                                        <span class="contact-label">Ubicacion</span>
+                                        <address>Santiago, CHILE</address>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="contact-icon"><i class="ion-ios-telephone-outline"></i></span>
+                                    <div class="contact-data">
+                                        <span class="contact-label">Telefono</span>
+                                        <p><a href="tel:+56961399502">+56 9 6139 9502</a></p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="contact-icon"><i class="ion-ios-email-outline"></i></span>
+                                    <div class="contact-data">
+                                        <span class="contact-label">Email</span>
+                                        <p><a href="mailto:contacto@bigcleans.cl">contacto@bigcleans.cl</a></p>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="contact-phone">
-                            <i class="ion-ios-telephone-outline"></i>
-                            <h3>Telefono</h3>
-                            <p><a href="tel:+56961399502">+56961399502</a></p>
+                    <div class="col-lg-7">
+                        <div class="contact-panel form">
+                            <div id="sendmessage">Tu mensaje fue enviado. Gracias por escribirnos!</div>
+                            <div id="errormessage"></div>
+                            <form action="sendemail.php" class="contactForm" id="formulario" method="post" role="form">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6" id="grupo__nombre">
+                                        <label for="name">Nombre</label>
+                                        <input class="form-control" data-msg="Por favor escribe mas de 4 caracteres" data-rule="minlen:4" id="name" name="nombre" placeholder="Tu nombre" type="text" />
+                                        <div class="validation"></div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="email">Email</label>
+                                        <input class="form-control" data-msg="Por favor escribe un email valido" data-rule="email" id="email" name="email" placeholder="tucorreo@ejemplo.cl" type="email" />
+                                        <div class="validation"></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject">Asunto</label>
+                                    <input class="form-control" data-msg="Por favor ingresa mas de 8 caracteres" data-rule="minlen:4" id="subject" name="asunto" placeholder="Ej: Cotizacion aseo de oficina" type="text" />
+                                    <div class="validation"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Mensaje</label>
+                                    <textarea class="form-control" data-msg="Por favor escribe tu comentario" data-rule="required" id="message" name="mensaje" placeholder="Contanos que servicio necesitas, el lugar y la fecha aproximada." rows="5"></textarea>
+                                    <div class="validation"></div>
+                                </div>
+                                <button type="submit">Enviar mensaje</button>
+                            </form>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="contact-email">
-                            <i class="ion-ios-email-outline"></i>
-                            <h3>Email</h3>
-                            <p><a href="mailto:contacto@bigcleans.cl">contacto@bigcleans.cl</a></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="form">
-                    <div id="sendmessage">Your message has been sent. Thank you!</div>
-                    <div id="errormessage"></div>
-                    <form action="sendemail.php" class="contactForm" id="formulario" method="post" role="form">
-                        <div class="form-row">
-                            <div class="form-group col-md-6" id="grupo__nombre">
-                                <input class="form-control" data-msg="Por favor escribe mas de 4 caracteres" data-rule="minlen:4" id="name" name="nombre" placeholder="Tu nombre" type="text" />
-                                <div class="validation"></div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <input class="form-control" data-msg="Por favor escribe un email valido" data-rule="email" id="email" name="email" placeholder="Tu Email" type="email" />
-                                <div class="validation"></div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input class="form-control" data-msg="Por favor ingresa mas de 8 caracteres" data-rule="minlen:4" id="subject" name="asunto" placeholder="Asunto" type="text" />
-                            <div class="validation"></div>
-                        </div>
-                        <div class="form-group">
-<textarea class="form-control" data-msg="Por favor escribe tu comentario" data-rule="required" name="mensaje" placeholder="Mensaje" rows="5"></textarea>
-                            <div class="validation"></div>
-                        </div>
-                        <div class="text-center"><button type="submit">Enviar Mensaje</button></div>
-                    </form>
                 </div>
             </div>
         </section><!-- #contact -->
@@ -807,12 +885,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-6 footer-info">
-                        <a aria-label="Enlace" href="#intro"><img alt="" src="img/Logo bigcleans.png" title="Bigcleans" /></a>
+                        <a aria-label="Volver al inicio" href="#intro"><img alt="Bigcleans - Aseo integral en Santiago" src="img/Logo bigcleans.png" title="Bigcleans" /></a>
                     </div>
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4>Accesos mas usados</h4>
                         <ul>
-                            <li><i class="ion-ios-arrow-right"></i> <a href="#">Inicio</a></li>
+                            <li><i class="ion-ios-arrow-right"></i> <a href="#intro">Inicio</a></li>
                             <li><i class="ion-ios-arrow-right"></i> <a href="#servicios">Nuestra Empresa</a></li>
                             <li><i class="ion-ios-arrow-right"></i> <a href="#portfolio">Galeria</a></li>
                             <li><i class="ion-ios-arrow-right"></i> <a href="#servicios">Servicios</a></li>
@@ -845,10 +923,11 @@
         </button>
         <div class="contact-options">
             <a aria-label="WhatsApp" href="https://api.whatsapp.com/send?phone=+56961399502&amp;text=Hola%21%20Quisiera%20más%20información." target="_blank">
-                <i class="fa fa-whatsapp"></i>
+                <span class="option-icon"><i class="fa fa-whatsapp"></i></span>
             </a>
             <a aria-label="Instagram" href="https://www.instagram.com/bigcleans/" target="_blank">
-                <i class="fa fa-instagram"></i>
+                <span class="option-label">Nuestro día a día</span>
+                <span class="option-icon"><i class="fa fa-instagram"></i></span>
             </a>
         </div>
     </div>
@@ -866,7 +945,6 @@
     <script src="lib/waypoints/waypoints.min.js"></script>
     <script src="lib/counterup/counterup.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/isotope/isotope.pkgd.min.js"></script>
     <script src="lib/lightbox/js/lightbox.min.js"></script>
     <script src="lib/touchSwipe/jquery.touchSwipe.min.js"></script>
     <!-- Contact Form JavaScript File -->
