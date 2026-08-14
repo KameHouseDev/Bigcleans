@@ -10,9 +10,28 @@
 --------------------------------------------------------------*/
 
 body {
-    background: black;
+    background: #000;
     color: #666666;
     font-family: "Open Sans", sans-serif;
+}
+
+/* Fondo de espuma de lavaza, detras de todo el contenido.
+   Va en un pseudo-elemento fijo y no con background-attachment:fixed porque iOS
+   ignora esa propiedad y el fondo termina saltando al hacer scroll. */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-color: #000;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.82)), url('../img/fondo/foam-2x.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 a {
@@ -69,7 +88,10 @@ h6 {
         color: #fff;
     }
 
-/* Prelaoder */
+/* Preloader
+   Pantalla negra con el logo "llenandose" de abajo hacia arriba: debajo va el
+   logo apagado y encima el mismo logo a todo color, revelado con clip-path.
+   Lo oculta js/preloader.js, que ademas tiene una red de seguridad por tiempo. */
 
 #preloader {
     position: fixed;
@@ -77,46 +99,98 @@ h6 {
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 9999;
+    z-index: 99999;
     overflow: hidden;
-    background: #fff;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
 }
 
-    #preloader:before {
-        content: "";
-        position: fixed;
-        top: calc(50% - 30px);
-        left: calc(50% - 30px);
-        border: 6px solid #f2f2f2;
-        border-top: 6px solid #0000ff;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        -webkit-animation: animate-preloader 1s linear infinite;
-        animation: animate-preloader 1s linear infinite;
+    #preloader.preloader-oculto {
+        opacity: 0;
     }
 
-@-webkit-keyframes animate-preloader {
+.preloader-inner {
+    text-align: center;
+}
+
+.preloader-logo {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+}
+
+    .preloader-logo img {
+        width: 200px;
+        height: auto;
+        opacity: 0.16; /* logo "vacio" */
+    }
+
+    .preloader-logo .preloader-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('../img/Logo bigcleans.png') no-repeat center / contain;
+        /* Corre una sola vez y se queda lleno: js/preloader.js espera a que termine
+           antes de destapar la pagina, para que el llenado siempre se vea completo. */
+        animation: preloader-llenar 1.5s cubic-bezier(0.45, 0.05, 0.35, 1) forwards;
+    }
+
+@keyframes preloader-llenar {
     0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
+        clip-path: inset(100% 0 0 0);
     }
 
     100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
+        clip-path: inset(0 0 0 0);
     }
 }
 
-@keyframes animate-preloader {
+.preloader-bar {
+    width: 180px;
+    height: 3px;
+    margin: 26px auto 0;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+    .preloader-bar i {
+        display: block;
+        width: 40%;
+        height: 100%;
+        background: #0000ff;
+        border-radius: 3px;
+        animation: preloader-barra 1.2s ease-in-out infinite;
+    }
+
+@keyframes preloader-barra {
     0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
+        transform: translateX(-110%);
     }
 
     100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
+        transform: translateX(360%);
+    }
+}
+
+/* Sin animacion para quien pide menos movimiento: el logo se queda visible */
+@media (prefers-reduced-motion: reduce) {
+    .preloader-logo img {
+        opacity: 1;
+    }
+
+    .preloader-logo .preloader-fill,
+    .preloader-bar i {
+        animation: none;
+    }
+
+    .preloader-logo .preloader-fill {
+        display: none;
     }
 }
 
@@ -168,60 +242,79 @@ h6 {
             margin-bottom: 30px;
         }
 
-/* Burbujas de jabon que suben desde el logo.
-   Las <i> las crea js/logoBubbles.js con tamano, posicion y ritmo al azar,
-   para que el ciclo nunca se vea mecanico. */
-/* El ancla es el <a>, no #logo: en pantallas grandes #logo lleva padding-left
-   y las burbujas aparecerian tambien a la izquierda del logo. */
+/* Brillo que recorre el contorno del logo.
+   img/logo-borde.png es el logo reducido a su borde, sacado de su canal alfa.
+   Se usa como mascara, asi la luz aparece solo sobre el contorno y no sobre el
+   relleno ni sobre el fondo. Es solo CSS, no necesita JavaScript.
+   El ancla es el <a> y no #logo porque en pantallas grandes #logo lleva
+   padding-left y el brillo se correria hacia la izquierda del logo. */
 #header #logo a {
     position: relative;
     display: inline-block;
 }
 
-    #header #logo .logo-bubbles {
+    #header #logo a::after {
+        content: '';
         position: absolute;
-        left: -4px;
-        right: -4px;
-        bottom: 30px; /* alineado con el borde inferior del logo */
-        height: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        /* La imagen del logo lleva margin-bottom:30px, asi que el <a> es mas alto
+           que el logo. Sin este 30px la mascara se centra en la caja completa y el
+           contorno queda corrido hacia abajo respecto al logo. */
+        bottom: 30px;
         pointer-events: none;
+        -webkit-mask: url('../img/logo-borde.png') no-repeat center / contain;
+        mask: url('../img/logo-borde.png') no-repeat center / contain;
+        background: linear-gradient(100deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.98) 49%, rgba(150, 185, 255, 0.85) 53%, rgba(255, 255, 255, 0) 62%);
+        background-size: 300% 100%;
+        animation: logo-borde 4s ease-in-out infinite;
     }
 
-        #header #logo .logo-bubbles i {
-            position: absolute;
-            bottom: 0;
-            display: block;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(120, 170, 255, 0.4) 45%, rgba(0, 0, 255, 0.15) 70%);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            opacity: 0;
-            animation: logo-burbuja 4.5s linear infinite;
-        }
-
-@keyframes logo-burbuja {
+@keyframes logo-borde {
     0% {
-        transform: translateY(10px) scale(0.6);
-        opacity: 0;
+        background-position: 100% 0;
     }
 
-    15% {
-        opacity: 0.9;
-    }
-
-    70% {
-        opacity: 0.6;
+    55% {
+        background-position: 0% 0;
     }
 
     100% {
-        transform: translateY(-55px) scale(1.05);
-        opacity: 0;
+        background-position: 0% 0; /* pausa antes de repetir */
     }
 }
 
 /* Respeta a quien pide menos movimiento en su sistema */
 @media (prefers-reduced-motion: reduce) {
-    #header #logo .logo-bubbles {
+    #header #logo a::after {
         display: none;
+    }
+}
+
+/* Rastro de burbujas del puntero.
+   Las crea js/cursorBurbujas.js. El cursor del sistema queda intacto: esto va
+   por encima y con pointer-events:none, asi no interfiere con ningun click. */
+.cursor-burbuja {
+    position: fixed;
+    z-index: 99998;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(120, 170, 255, 0.4) 45%, rgba(0, 0, 255, 0.15) 70%);
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    animation: cursor-burbuja 1.5s ease-out forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes cursor-burbuja {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0.95;
+    }
+
+    100% {
+        transform: translate(-50%, -240%) scale(1.15);
+        opacity: 0;
     }
 }
 
@@ -1848,6 +1941,25 @@ body.mobile-nav-active {
     background: black;
 }
 
+/* El header es fijo: sin este margen, al saltar a un ancla desde el footer el
+   titulo de la seccion queda oculto debajo de la barra. Solo afecta al salto
+   nativo del navegador; el scroll suave del menu ya descuenta el header. */
+section[id] {
+    scroll-margin-top: 90px;
+}
+
+/* Nuestra Empresa: va debajo de los servicios, como seccion propia */
+#empresa {
+    padding: 30px 0 70px 0;
+    background: black;
+}
+
+    #empresa .section-header p {
+        max-width: 900px;
+        margin: 0 auto;
+        line-height: 1.85;
+    }
+
     #servicios #servicios-flters {
         padding: 0;
         margin: 5px 0 35px 0;
@@ -1889,20 +2001,26 @@ body.mobile-nav-active {
             box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.16);
         }
 
+    /* Las fichas de servicio son verticales y todas comparten la misma proporcion,
+       asi que la altura la define la propia imagen y las filas calzan solas. */
     #servicios .servicios-item {
         position: relative;
-        height: 400px;
-        overflow: hidden;
+        margin-bottom: 26px;
     }
 
         #servicios .servicios-item figure {
             background: #000;
             overflow: hidden;
-            height: 350px;
             position: relative;
-            border-radius: 4px 4px 0 0;
+            border-radius: 4px;
             margin: 0;
         }
+
+            #servicios .servicios-item figure img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
 
             /* Toda la imagen es el enlace a la pagina del servicio */
             #servicios .servicios-item figure .servicio-link {
@@ -1924,7 +2042,7 @@ body.mobile-nav-active {
                 text-align: center;
                 width: 36px;
                 height: 36px;
-                background: gold;
+                background: #fff;
                 border-radius: 50%;
                 transition: 0.2s linear;
                 margin-left: 30px;
@@ -1934,7 +2052,7 @@ body.mobile-nav-active {
                 #servicios .servicios-item figure .link-details i {
                     padding-top: 6px;
                     font-size: 22px;
-                    color: #333;
+                    color: #0000ff;
                 }
 
                 #servicios .servicios-item figure .link-preview:hover,
@@ -2024,11 +2142,13 @@ html, body {
         font-size: 30px;
         box-shadow: 6px 6px 6px black;
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s, color 0.3s;
     }
 
+        /* Al pasar el mouse se invierten los colores de la marca: fondo blanco, icono azul */
         .floating-menu button:hover {
-            background-color: rgb(240, 77, 140);
+            background-color: #fff;
+            color: #0000ff;
         }
 
     .floating-menu .contact-options {
@@ -2065,16 +2185,18 @@ html, body {
             width: 48px;
             height: 48px;
             background-color: #0000ff;
+            color: #fff;
             border-radius: 50%;
             text-align: center;
             font-size: 24px;
             line-height: 48px;
             box-shadow: 6px 6px 6px black;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s;
         }
 
             .floating-menu .contact-options a:hover .option-icon {
-                background-color: rgb(240, 77, 140);
+                background-color: #fff;
+                color: #0000ff;
             }
 
         /* Invitation tag: slides in with the menu, then pulses so it catches the eye */
@@ -2119,3 +2241,21 @@ html, body {
 
 
 
+
+/*--------------------------------------------------------------
+# Transparencias para el fondo de espuma
+# El fondo vive en body::before. Estas secciones tenian negro solido y lo
+# tapaban por completo, asi que se dejan transparentes.
+# NO se tocan las que llevan imagenes detras (fichas, miembros del equipo,
+# portfolio) ni el preloader ni el hero: ahi el negro es intencional.
+--------------------------------------------------------------*/
+
+.section-bg,
+.gracias-section-bg,
+#featured-services,
+#team,
+#footer,
+#servicios,
+#empresa {
+    background: transparent;
+}

@@ -1,14 +1,8 @@
 (function ($) {
   "use strict";
 
-  // Preloader
-  $(window).on('load', function () {
-    if ($('#preloader').length) {
-      $('#preloader').delay(100).fadeOut('slow', function () {
-        $(this).remove();
-      });
-    }
-  });
+  // El preloader lo maneja js/preloader.js, sin jQuery, para que funcione
+  // aunque alguna libreria no alcance a cargar.
 
   // Intro copy holds back until the branded shots at the head of the video have played,
   // and re-hides on every loop so the logo is never covered.

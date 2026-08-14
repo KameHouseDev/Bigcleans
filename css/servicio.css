@@ -223,21 +223,39 @@
 
 .servicio-lista-alt li::before {
     content: '\f3d3'; /* ionicons: arrow right */
-    color: gold;
+    color: #5959ff; /* azul claro: distingue esta lista de la anterior sin salirse de la paleta */
 }
 
 /*--------------------------------------------------------------
 # Panel lateral
 --------------------------------------------------------------*/
 
+/* La columna derecha lleva la ficha vertical del servicio y, debajo, la cotizacion.
+   Se mantiene a la vista mientras se lee el texto de la izquierda. */
+.servicio-columna {
+    position: sticky;
+    top: 100px;
+}
+
+.servicio-ficha {
+    margin: 0 0 24px 0;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #000;
+    border: 1px solid #1f1f1f;
+}
+
+    .servicio-ficha img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
 .servicio-aside {
     background: #0d0d0d;
     border: 1px solid #1f1f1f;
     border-radius: 6px;
     padding: 30px;
-    margin-top: 10px;
-    position: sticky;
-    top: 100px;
 }
 
     .servicio-aside h3 {
@@ -297,7 +315,7 @@
 }
 
     .servicio-garantia i {
-        color: gold;
+        color: #5959ff;
         font-size: 26px;
     }
 
@@ -414,7 +432,7 @@
     }
 
     .otro-servicio:hover span {
-        color: gold;
+        color: #5959ff;
     }
 
 /*--------------------------------------------------------------
@@ -422,9 +440,16 @@
 --------------------------------------------------------------*/
 
 @media (max-width: 991px) {
-    .servicio-aside {
+    .servicio-columna {
         position: static;
         margin-top: 40px;
+    }
+
+    /* La ficha a ancho completo se ve desproporcionada en tablet: se centra acotada */
+    .servicio-ficha {
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
@@ -456,4 +481,16 @@
     .servicio-foto img {
         height: 220px;
     }
+}
+
+/*--------------------------------------------------------------
+# Transparencias para el fondo de espuma
+# Esta hoja carga despues de style.css, por eso las secciones de las paginas
+# de servicio se liberan aca y no alla.
+--------------------------------------------------------------*/
+
+.servicio-page,
+.servicio-detalle,
+.servicio-cta {
+    background: transparent;
 }
