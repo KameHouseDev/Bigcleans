@@ -1,0 +1,459 @@
+/*--------------------------------------------------------------
+# Paginas individuales de servicio
+# Se carga solo en servicios/*.html, sobre css/style.css
+--------------------------------------------------------------*/
+
+.servicio-page {
+    background: #000;
+    color: #b8b8b8;
+}
+
+/*--------------------------------------------------------------
+# Portada
+--------------------------------------------------------------*/
+
+.servicio-hero {
+    position: relative;
+    padding: 190px 0 80px 0;
+    overflow: hidden;
+    background: #000;
+}
+
+.servicio-hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.55;
+}
+
+.servicio-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 60%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.servicio-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+    .servicio-hero-content h1 {
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 42px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 0 0 15px 0;
+        padding-bottom: 15px;
+        position: relative;
+    }
+
+        .servicio-hero-content h1::after {
+            content: '';
+            position: absolute;
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #0000ff;
+            bottom: 0;
+            left: 0;
+        }
+
+    .servicio-hero-content > p {
+        color: #e6e6e6;
+        font-size: 18px;
+        max-width: 640px;
+        margin-bottom: 28px;
+    }
+
+.servicio-breadcrumb {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 18px 0;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .servicio-breadcrumb li {
+        display: inline-block;
+        color: #b8b8b8;
+    }
+
+        .servicio-breadcrumb li + li::before {
+            content: '/';
+            padding: 0 10px;
+            color: #666;
+        }
+
+        .servicio-breadcrumb li a {
+            color: #b8b8b8;
+        }
+
+            .servicio-breadcrumb li a:hover {
+                color: #fff;
+            }
+
+.servicio-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/*--------------------------------------------------------------
+# Botones
+--------------------------------------------------------------*/
+
+.btn-servicio {
+    display: inline-block;
+    padding: 13px 30px;
+    border-radius: 4px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: center;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+    .btn-servicio:hover,
+    .btn-servicio:focus {
+        text-decoration: none;
+    }
+
+.btn-servicio-wa {
+    background: #25d366;
+    color: #fff;
+}
+
+    .btn-servicio-wa:hover,
+    .btn-servicio-wa:focus {
+        background: #1da851;
+        color: #fff;
+    }
+
+    .btn-servicio-wa i {
+        margin-right: 8px;
+        font-size: 18px;
+        vertical-align: -1px;
+    }
+
+.btn-servicio-alt {
+    background: transparent;
+    border-color: #fff;
+    color: #fff;
+}
+
+    .btn-servicio-alt:hover,
+    .btn-servicio-alt:focus {
+        background: #0000ff;
+        border-color: #0000ff;
+        color: #fff;
+    }
+
+.btn-block-servicio {
+    display: block;
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+/*--------------------------------------------------------------
+# Detalle
+--------------------------------------------------------------*/
+
+.servicio-detalle {
+    padding: 70px 0;
+    background: #000;
+}
+
+    .servicio-detalle h2 {
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 22px;
+    }
+
+    .servicio-detalle h3 {
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        margin: 38px 0 18px 0;
+    }
+
+    .servicio-detalle p {
+        color: #b8b8b8;
+        font-size: 16px;
+        line-height: 1.8;
+        margin-bottom: 18px;
+    }
+
+.servicio-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    .servicio-lista li {
+        position: relative;
+        padding: 0 0 0 32px;
+        margin-bottom: 12px;
+        color: #b8b8b8;
+        line-height: 1.6;
+    }
+
+        .servicio-lista li::before {
+            content: '\f383'; /* ionicons: checkmark */
+            font-family: "Ionicons";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #0000ff;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+.servicio-lista-alt li::before {
+    content: '\f3d3'; /* ionicons: arrow right */
+    color: gold;
+}
+
+/*--------------------------------------------------------------
+# Panel lateral
+--------------------------------------------------------------*/
+
+.servicio-aside {
+    background: #0d0d0d;
+    border: 1px solid #1f1f1f;
+    border-radius: 6px;
+    padding: 30px;
+    margin-top: 10px;
+    position: sticky;
+    top: 100px;
+}
+
+    .servicio-aside h3 {
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 20px;
+        font-weight: 700;
+        margin: 0 0 14px 0;
+    }
+
+    .servicio-aside p {
+        color: #b8b8b8;
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 22px;
+    }
+
+.servicio-datos {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 22px 0;
+}
+
+    .servicio-datos li {
+        position: relative;
+        padding: 0 0 0 30px;
+        margin-bottom: 14px;
+        color: #b8b8b8;
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+        .servicio-datos li i {
+            position: absolute;
+            left: 0;
+            top: 1px;
+            color: #0000ff;
+            font-size: 20px;
+        }
+
+        .servicio-datos li a {
+            color: #b8b8b8;
+        }
+
+            .servicio-datos li a:hover {
+                color: #fff;
+            }
+
+.servicio-garantia {
+    border-top: 1px solid #1f1f1f;
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #e6e6e6;
+    font-size: 14px;
+}
+
+    .servicio-garantia i {
+        color: gold;
+        font-size: 26px;
+    }
+
+/*--------------------------------------------------------------
+# Galeria
+--------------------------------------------------------------*/
+
+.servicio-galeria {
+    padding: 60px 0;
+}
+
+    .servicio-galeria .section-header {
+        margin-bottom: 35px;
+    }
+
+.servicio-foto {
+    margin: 0 0 30px 0;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
+}
+
+    .servicio-foto a {
+        display: block;
+        position: relative;
+    }
+
+    .servicio-foto img {
+        width: 100%;
+        height: 260px;
+        object-fit: cover;
+        transition: 0.4s;
+    }
+
+    .servicio-foto:hover img {
+        opacity: 0.55;
+        transform: scale(1.05);
+    }
+
+/*--------------------------------------------------------------
+# Llamado a la accion
+--------------------------------------------------------------*/
+
+.servicio-cta {
+    padding: 60px 0;
+    background: #000;
+    text-align: center;
+}
+
+    .servicio-cta h3 {
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+
+    .servicio-cta p {
+        color: #b8b8b8;
+        font-size: 16px;
+        margin-bottom: 26px;
+    }
+
+    .servicio-cta .btn-servicio {
+        margin: 0 6px 10px 6px;
+    }
+
+/*--------------------------------------------------------------
+# Otros servicios
+--------------------------------------------------------------*/
+
+.servicio-otros {
+    padding: 60px 0;
+}
+
+    .servicio-otros .section-header {
+        margin-bottom: 35px;
+    }
+
+.otro-servicio {
+    display: block;
+    position: relative;
+    margin-bottom: 24px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #000;
+}
+
+    .otro-servicio img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        transition: 0.4s;
+        opacity: 0.6;
+    }
+
+    .otro-servicio:hover img {
+        opacity: 0.3;
+        transform: scale(1.06);
+    }
+
+    .otro-servicio span {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 12px 14px;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 40%, rgba(0, 0, 0, 0));
+        color: #fff;
+        font-family: "Montserrat", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        line-height: 1.35;
+    }
+
+    .otro-servicio:hover span {
+        color: gold;
+    }
+
+/*--------------------------------------------------------------
+# Responsive
+--------------------------------------------------------------*/
+
+@media (max-width: 991px) {
+    .servicio-aside {
+        position: static;
+        margin-top: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .servicio-hero {
+        padding: 150px 0 60px 0;
+    }
+
+        .servicio-hero-content h1 {
+            font-size: 30px;
+        }
+
+        .servicio-hero-content > p {
+            font-size: 16px;
+        }
+
+    .servicio-hero-actions .btn-servicio {
+        width: 100%;
+    }
+
+    .servicio-detalle {
+        padding: 50px 0;
+    }
+
+        .servicio-detalle h2 {
+            font-size: 24px;
+        }
+
+    .servicio-foto img {
+        height: 220px;
+    }
+}

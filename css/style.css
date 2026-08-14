@@ -168,6 +168,63 @@ h6 {
             margin-bottom: 30px;
         }
 
+/* Burbujas de jabon que suben desde el logo.
+   Las <i> las crea js/logoBubbles.js con tamano, posicion y ritmo al azar,
+   para que el ciclo nunca se vea mecanico. */
+/* El ancla es el <a>, no #logo: en pantallas grandes #logo lleva padding-left
+   y las burbujas aparecerian tambien a la izquierda del logo. */
+#header #logo a {
+    position: relative;
+    display: inline-block;
+}
+
+    #header #logo .logo-bubbles {
+        position: absolute;
+        left: -4px;
+        right: -4px;
+        bottom: 30px; /* alineado con el borde inferior del logo */
+        height: 0;
+        pointer-events: none;
+    }
+
+        #header #logo .logo-bubbles i {
+            position: absolute;
+            bottom: 0;
+            display: block;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.95), rgba(120, 170, 255, 0.4) 45%, rgba(0, 0, 255, 0.15) 70%);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            opacity: 0;
+            animation: logo-burbuja 4.5s linear infinite;
+        }
+
+@keyframes logo-burbuja {
+    0% {
+        transform: translateY(10px) scale(0.6);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 0.9;
+    }
+
+    70% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-55px) scale(1.05);
+        opacity: 0;
+    }
+}
+
+/* Respeta a quien pide menos movimiento en su sistema */
+@media (prefers-reduced-motion: reduce) {
+    #header #logo .logo-bubbles {
+        display: none;
+    }
+}
+
 /*--------------------------------------------------------------
 # Intro Section
 --------------------------------------------------------------*/
@@ -1847,6 +1904,12 @@ body.mobile-nav-active {
             margin: 0;
         }
 
+            /* Toda la imagen es el enlace a la pagina del servicio */
+            #servicios .servicios-item figure .servicio-link {
+                display: block;
+                line-height: 0;
+            }
+
             #servicios .servicios-item figure:hover img {
                 opacity: 0.4;
                 transition: 0.3s;
@@ -1889,9 +1952,11 @@ body.mobile-nav-active {
                 top: calc(50% - 18px);
             }
 
+            /* Unico boton de la tarjeta: va centrado y sube un poco al pasar el mouse */
             #servicios .servicios-item figure .link-details {
-                right: calc(50% - 38px);
-                top: calc(50% - 18px);
+                margin-left: 0;
+                left: calc(50% - 18px);
+                top: calc(50% - 8px);
             }
 
             #servicios .servicios-item figure:hover .link-preview {
@@ -1901,7 +1966,7 @@ body.mobile-nav-active {
 
             #servicios .servicios-item figure:hover .link-details {
                 opacity: 1;
-                right: calc(50% - 44px);
+                top: calc(50% - 18px);
             }
 
         #servicios .servicios-item .servicios-info {
