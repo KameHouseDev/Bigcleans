@@ -4,7 +4,8 @@
  * Las fotos ya fueron subidas por subir.php: aca solo llegan sus tokens,
  * asi que este envio es puro texto y pesa unos pocos KB.
  */
-require __DIR__ . '/config.php';
+define('RESPUESTA_JSON', true);
+require __DIR__ . '/arranque.php';
 
 iniciar_sesion();
 

@@ -4,7 +4,7 @@
  * Publica a proposito: se abre desde el enlace de WhatsApp sin clave.
  * Lo que la protege es el id aleatorio, no adivinable.
  */
-require __DIR__ . '/config.php';
+require __DIR__ . '/arranque.php';
 
 $id = $_GET['id'] ?? '';
 

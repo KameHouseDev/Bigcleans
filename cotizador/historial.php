@@ -4,7 +4,7 @@
  * puede recuperar por su enlace: si se cierra WhatsApp sin enviarlo, queda
  * perdida entre los archivos.
  */
-require __DIR__ . '/config.php';
+require __DIR__ . '/arranque.php';
 
 iniciar_sesion();
 

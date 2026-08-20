@@ -8,7 +8,8 @@
  * pasara, PHP descarta las sobrantes en silencio y la cotizacion se guardaria
  * con fotos faltantes sin avisar.
  */
-require __DIR__ . '/config.php';
+define('RESPUESTA_JSON', true);
+require __DIR__ . '/arranque.php';
 
 iniciar_sesion();
 

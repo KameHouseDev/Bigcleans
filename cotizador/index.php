@@ -3,7 +3,7 @@
  * Cotizador de reparaciones en terreno.
  * Pantalla privada: se entra con PIN y queda la sesion abierta en el telefono.
  */
-require __DIR__ . '/config.php';
+require __DIR__ . '/arranque.php';
 
 iniciar_sesion();
 

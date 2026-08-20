@@ -4,7 +4,8 @@
  * El correo lleva el detalle y el enlace: las fotos viven en la pagina, no
  * como adjuntos, para no chocar con los limites de tamaño de los servidores.
  */
-require __DIR__ . '/config.php';
+define('RESPUESTA_JSON', true);
+require __DIR__ . '/arranque.php';
 
 session_start();
 header('Content-Type: application/json; charset=utf-8');
