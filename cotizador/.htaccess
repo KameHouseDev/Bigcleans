@@ -1,0 +1,5 @@
+# El cotizador es una herramienta interna: no debe aparecer en buscadores
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>
+Options -Indexes

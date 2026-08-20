@@ -1,0 +1,510 @@
+/* Cotizador de reparaciones - pensado para usarse en el telefono, en terreno */
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+/* El atributo hidden de HTML aplica display:none desde la hoja del navegador,
+   pero cualquier display del autor le gana. Sin esta linea, .modal y .cargando
+   —que son display:flex— se muestran igual estando ocultos y tapan la pantalla. */
+[hidden] { display: none !important; }
+
+body {
+    margin: 0;
+    background: #0a0a0a;
+    color: #d8d8d8;
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px; /* menos de 16 hace que iOS haga zoom al enfocar un campo */
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+h1, h2 { font-family: "Montserrat", sans-serif; color: #fff; }
+
+/*--------------------------------------------------------------
+# Acceso con PIN
+--------------------------------------------------------------*/
+
+.acceso {
+    max-width: 340px;
+    margin: 0 auto;
+    padding: 70px 24px;
+    text-align: center;
+}
+
+.acceso-logo { width: 180px; margin-bottom: 34px; }
+.acceso h1 { font-size: 19px; margin: 0 0 28px; }
+.acceso label { display: block; text-align: left; font-size: 14px; margin-bottom: 8px; color: #b8b8b8; }
+
+.acceso input {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+    background: #131313;
+    color: #fff;
+    font-size: 22px;
+    text-align: center;
+    letter-spacing: 8px;
+}
+
+.acceso button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 15px;
+    border: 0;
+    border-radius: 8px;
+    background: #0000ff;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.error { color: #ff6b6b; font-size: 14px; margin: 14px 0 0; }
+
+/*--------------------------------------------------------------
+# Barra superior
+--------------------------------------------------------------*/
+
+.barra {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: #000;
+    border-bottom: 1px solid #1e1e1e;
+}
+
+.barra img { width: 120px; }
+.barra span { font-family: "Montserrat", sans-serif; font-size: 13px; color: #7a7a7a; }
+.barra .salir { margin-left: auto; color: #7a7a7a; font-size: 13px; text-decoration: none; }
+
+/*--------------------------------------------------------------
+# Formulario
+--------------------------------------------------------------*/
+
+.app { padding: 16px 14px 0; max-width: 720px; margin: 0 auto; }
+
+.tarjeta {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 12px;
+    padding: 18px 16px;
+    margin-bottom: 14px;
+}
+
+.tarjeta h2 {
+    font-size: 15px;
+    margin: 0 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.opc { color: #6a6a6a; font-weight: 400; font-size: 13px; }
+
+.contador {
+    background: #0000ff;
+    color: #fff;
+    font-size: 12px;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 11px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 7px;
+}
+
+.campo { margin-bottom: 14px; }
+.campo:last-child { margin-bottom: 0; }
+.campo label { display: block; font-size: 13.5px; color: #b8b8b8; margin-bottom: 6px; }
+.campo small { display: block; font-size: 12px; color: #6a6a6a; margin-top: 5px; }
+
+input[type="text"], input[type="tel"], input[type="email"], textarea {
+    width: 100%;
+    padding: 12px 13px;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+    background: #191919;
+    color: #fff;
+    font-family: inherit;
+    font-size: 15px;
+}
+
+input:focus, textarea:focus { outline: none; border-color: #0000ff; }
+textarea { resize: vertical; }
+
+/*--------------------------------------------------------------
+# Item de reparacion
+--------------------------------------------------------------*/
+
+.item {
+    position: relative;
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: #171717;
+    border: 1px solid #262626;
+    border-radius: 10px;
+}
+
+.item-borrar {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    width: 26px;
+    height: 26px;
+    border: 0;
+    border-radius: 50%;
+    background: #2a2a2a;
+    color: #d8d8d8;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.item-borrar:hover { background: #b03030; color: #fff; }
+
+.item-foto {
+    flex: 0 0 92px;
+    width: 92px;
+    height: 92px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #0d0d0d;
+    border: 1px dashed #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+}
+
+.item-foto img { width: 100%; height: 100%; object-fit: cover; }
+
+.item-foto-vacia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #6a6a6a;
+    font-size: 11px;
+    text-align: center;
+}
+
+.item-foto-vacia .icono { font-size: 22px; }
+
+.item-datos { flex: 1; min-width: 0; }
+.item-desc { margin-bottom: 8px; }
+
+.item-precio {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #191919;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 0 12px;
+}
+
+.item-precio span { color: #6a6a6a; font-size: 15px; }
+
+.item-precio input {
+    border: 0;
+    background: transparent;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.btn-agregar {
+    width: 100%;
+    padding: 14px;
+    border: 1px dashed #333;
+    border-radius: 10px;
+    background: transparent;
+    color: #0000ff;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-agregar:hover { border-color: #0000ff; background: rgba(0, 0, 255, 0.06); }
+
+.aviso { color: #d9a441; font-size: 13px; margin: 10px 0 0; }
+
+/*--------------------------------------------------------------
+# Barra de total, fija abajo
+--------------------------------------------------------------*/
+
+.espaciador { height: 90px; }
+
+.totalbar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+    background: rgba(8, 8, 8, 0.97);
+    border-top: 1px solid #1e1e1e;
+}
+
+.totalbar-monto { flex: 1; }
+.totalbar-monto span { display: block; font-size: 12px; color: #7a7a7a; }
+.totalbar-monto strong { font-family: "Montserrat", sans-serif; font-size: 22px; color: #fff; }
+
+.totalbar button {
+    padding: 14px 22px;
+    border: 0;
+    border-radius: 8px;
+    background: #0000ff;
+    color: #fff;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.totalbar button:disabled { background: #262626; color: #6a6a6a; cursor: default; }
+
+/*--------------------------------------------------------------
+# Resultado
+--------------------------------------------------------------*/
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    overflow-y: auto;
+}
+
+.modal-caja {
+    background: #111;
+    border: 1px solid #262626;
+    border-radius: 14px;
+    padding: 26px 20px;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+}
+
+.modal-caja h2 { font-size: 19px; margin: 0 0 6px; }
+.modal-sub { color: #8a8a8a; font-size: 14px; margin: 0 0 22px; }
+
+.enlace-caja { display: flex; gap: 8px; margin-bottom: 18px; }
+
+.enlace-caja input {
+    flex: 1;
+    font-size: 13px;
+    padding: 11px;
+    color: #b8b8b8;
+    min-width: 0;
+}
+
+.enlace-caja button {
+    padding: 0 15px;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    background: #191919;
+    color: #d8d8d8;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-wa, .btn-mail, .btn-ver {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 10px;
+    border: 0;
+    border-radius: 8px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-wa { background: #25d366; color: #fff; }
+.btn-wa:hover { background: #1da851; }
+.btn-mail { background: #0000ff; color: #fff; }
+.btn-mail:hover { background: #2b2bff; }
+.btn-mail:disabled { background: #262626; color: #6a6a6a; }
+.btn-ver { background: transparent; border: 1px solid #333; color: #d8d8d8; }
+
+.modal-nota { font-size: 13px; margin: 14px 0 0; min-height: 18px; }
+.modal-nota.ok { color: #4ade80; }
+.modal-nota.mal { color: #ff6b6b; }
+
+.btn-cerrar {
+    margin-top: 18px;
+    background: none;
+    border: 0;
+    color: #7a7a7a;
+    font-size: 13.5px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/*--------------------------------------------------------------
+# Cargando
+--------------------------------------------------------------*/
+
+.cargando {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(0, 0, 0, 0.88);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    color: #b8b8b8;
+    font-size: 14px;
+}
+
+.spinner {
+    width: 44px;
+    height: 44px;
+    border: 4px solid #222;
+    border-top-color: #0000ff;
+    border-radius: 50%;
+    animation: girar 0.9s linear infinite;
+}
+
+@keyframes girar { to { transform: rotate(360deg); } }
+
+@media (min-width: 600px) {
+    .item-foto { flex-basis: 120px; width: 120px; height: 120px; }
+}
+
+
+/*--------------------------------------------------------------
+# Tira de fotos del item
+--------------------------------------------------------------*/
+
+.item-fotos { flex: 0 0 96px; display: flex; flex-direction: column; gap: 6px; }
+.tira { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.foto {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #0d0d0d;
+    border: 1px solid #2a2a2a;
+}
+
+    .foto img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .foto.subiendo img { opacity: .35; }
+    .foto.con-error { border-color: #b03030; }
+
+    .quitar-foto {
+        position: absolute;
+        top: 3px; right: 3px;
+        width: 20px; height: 20px;
+        border: 0; border-radius: 50%;
+        background: rgba(0,0,0,.75);
+        color: #fff; font-size: 14px; line-height: 1;
+        cursor: pointer;
+    }
+
+    .reintentar {
+        position: absolute;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+        border: 0; border-radius: 5px;
+        background: #b03030; color: #fff;
+        font-size: 11px; padding: 5px 9px;
+        cursor: pointer;
+    }
+
+.mini-spinner {
+    position: absolute;
+    left: 50%; top: 50%;
+    width: 22px; height: 22px;
+    margin: -11px 0 0 -11px;
+    border: 3px solid rgba(255,255,255,.2);
+    border-top-color: #0000ff;
+    border-radius: 50%;
+    animation: girar .8s linear infinite;
+}
+
+.agregar-foto {
+    width: 96px;
+    height: 46px;
+    border: 1px dashed #333;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: #6a6a6a;
+    font-size: 11.5px;
+    cursor: pointer;
+}
+
+    .agregar-foto:hover { border-color: #0000ff; color: #0000ff; }
+    .agregar-foto .icono { font-size: 15px; }
+
+.aviso-editar {
+    background: rgba(217, 164, 65, .1);
+    border: 1px solid rgba(217, 164, 65, .35);
+    color: #d9a441;
+    border-radius: 10px;
+    padding: 13px 15px;
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+/*--------------------------------------------------------------
+# Historial
+--------------------------------------------------------------*/
+
+.buscador { position: relative; margin-bottom: 14px; }
+.buscador input { width: 100%; padding: 13px 40px 13px 14px; border-radius: 10px; border: 1px solid #2a2a2a; background: #131313; color: #fff; font-size: 15px; }
+.buscador .limpiar { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: #7a7a7a; text-decoration: none; font-size: 20px; }
+
+.resumen { color: #7a7a7a; font-size: 13px; margin: 0 0 14px; }
+
+.fila-cot { background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 15px 16px; margin-bottom: 11px; }
+.fila-cab { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
+.fila-cab h3 { font-family: "Montserrat", sans-serif; color: #fff; font-size: 15px; margin: 0 0 3px; }
+.fila-dir { margin: 0; font-size: 13px; color: #7a7a7a; }
+.fila-total { font-family: "Montserrat", sans-serif; color: #fff; font-size: 17px; white-space: nowrap; }
+.fila-meta { margin: 9px 0 0; font-size: 12.5px; color: #6a6a6a; }
+
+.tag { display: inline-block; margin-left: 6px; padding: 2px 7px; border-radius: 3px; font-size: 10.5px; background: #262626; color: #b8b8b8; }
+.tag.ok { background: #14532d; color: #4ade80; }
+
+.fila-acciones { display: flex; gap: 8px; margin-top: 12px; }
+.fila-acciones a { flex: 1; text-align: center; padding: 9px; border: 1px solid #2a2a2a; border-radius: 7px; color: #d8d8d8; font-size: 13px; text-decoration: none; }
+.fila-acciones a:hover { border-color: #0000ff; color: #fff; }
+
+.vacio { text-align: center; }
+.vacio p { color: #7a7a7a; margin: 0 0 16px; }
+
+@media (min-width: 600px) {
+    .item-fotos { flex-basis: 110px; }
+    .foto, .agregar-foto { width: 110px; }
+    .foto { height: 110px; }
+}

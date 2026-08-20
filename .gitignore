@@ -7,3 +7,20 @@ Bigcleans.zip
 # OS junk
 Thumbs.db
 .DS_Store
+
+# Cotizador de reparaciones
+# El repositorio es publico: nada de esto puede subirse.
+
+# Lleva el PIN de acceso. Se versiona config.example.php en su lugar.
+cotizador/config.php
+
+# Datos de clientes: nombre, telefono, direccion, correo
+cotizador/datos/*
+!cotizador/datos/.htaccess
+
+# Fotos de las propiedades de los clientes
+cotizador/fotos/*
+!cotizador/fotos/.htaccess
+
+# Respaldo puntual: git ya guarda la version anterior de cada archivo
+img/banner-anterior.webp

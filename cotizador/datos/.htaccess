@@ -1,0 +1,3 @@
+# Los JSON tienen datos de clientes: nunca se sirven directo,
+# solo los lee PHP desde ver.php y enviar.php
+Require all denied
