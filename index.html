@@ -40,7 +40,7 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet" />
     <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet" />
     <!-- Main Stylesheet File -->
-    <link href="css/style.css?v=8" rel="stylesheet" />
+    <link href="css/style.css?v=9" rel="stylesheet" />
 
     <!-- Datos del negocio para Google (ficha local / resultados enriquecidos) -->
     <script type="application/ld+json">
@@ -158,11 +158,15 @@
         <div class="intro-container">
             <video class="intro-video" autoplay muted loop playsinline preload="metadata" poster="img/intro-carousel/hero-poster.webp"></video>
             <script>
-                // Assign the source inline, before the browser starts fetching, so a phone
-                // never downloads the desktop encode (5.5 MB vs 9.4 MB).
+                // Se asigna la fuente aqui, antes de que el navegador empiece a
+                // descargar, para que un telefono no baje la version de escritorio.
+                // En movil va una version vertical: el video original es 16:9 y en
+                // una pantalla vertical dejaba 312 px de franja negra arriba y abajo.
+                // hero-movil.mp4 rellena esos bordes con una copia desenfocada del
+                // propio video, asi se ve el cuadro completo sin recortar la marca.
                 (function () {
                     var v = document.querySelector('.intro-video');
-                    v.src = window.innerWidth < 768 ? 'video/hero-540.mp4' : 'video/hero-720.mp4';
+                    v.src = window.innerWidth < 768 ? 'video/hero-movil.mp4' : 'video/hero-720.mp4';
                 })();
             </script>
             <div class="intro-overlay"></div>

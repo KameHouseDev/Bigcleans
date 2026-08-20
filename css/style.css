@@ -1880,11 +1880,12 @@ body.mobile-nav-active {
         margin-bottom: 14px;
     }
 
-    /* A 16:9 video cropped to a portrait screen loses ~75% of its width, which cuts the
-       branding in the opening shots. Show the whole frame instead; the copy fades in
-       over it once the logo has passed. */
+    /* En movil se carga hero-movil.mp4, que ya viene vertical con los bordes
+       rellenos con una copia desenfocada del propio video. Al ser casi de la
+       proporcion de la pantalla, cover la llena recortando muy poco y sin
+       dejar las franjas negras que producia object-fit: contain. */
     #intro .intro-video {
-        object-fit: contain;
+        object-fit: cover;
     }
 
     #intro p {
