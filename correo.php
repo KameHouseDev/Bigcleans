@@ -82,7 +82,8 @@ function smtp_orden($conexion, string $orden, string $esperado, array &$traza): 
     }
     $r = smtp_leer($conexion);
     $traza[] = '< ' . trim($r);
-    return str_starts_with(trim($r), $esperado);
+    // No se usa str_starts_with: es de PHP 8 y el hosting corre 7.4
+    return strpos(trim($r), $esperado) === 0;
 }
 
 function smtp_entregar(array $destinos, string $para, string $asunto,

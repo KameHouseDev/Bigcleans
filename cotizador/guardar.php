@@ -139,10 +139,19 @@ if (!$editando) {
         . 'Reparaciones: ' . count($limpios) . "\n\n"
         . url_base() . '/ver.php?id=' . $id;
 
-    require_once __DIR__ . '/../correo.php';
-    enviar_correo(CORREO_OFICINA,
-        'Cotización ' . pesos($total) . ' - ' . ($cot['cliente'] ?: 'sin nombre'),
-        $aviso);
+    // El aviso a la oficina es secundario. Si el correo falla, la cotizacion ya
+    // esta guardada y el enlace debe entregarse igual: envolverlo evita que un
+    // problema de correo deje al usuario sin respuesta y sin saber que paso.
+    try {
+        require_once __DIR__ . '/../correo.php';
+        if (function_exists('enviar_correo')) {
+            enviar_correo(CORREO_OFICINA,
+                'Cotización ' . pesos($total) . ' - ' . ($cot['cliente'] ?: 'sin nombre'),
+                $aviso);
+        }
+    } catch (Throwable $e) {
+        @error_log('[cotizador] aviso a oficina no enviado: ' . $e->getMessage());
+    }
 }
 
 responder([

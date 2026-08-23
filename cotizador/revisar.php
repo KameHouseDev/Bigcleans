@@ -31,11 +31,14 @@ function revisar(string $titulo, string $estado, string $detalle, string $arregl
 }
 
 // --- PHP ---
+$phpViejo = version_compare(PHP_VERSION, '8.0', '<');
 revisar(
     'Versión de PHP',
-    version_compare(PHP_VERSION, '7.4', '>=') ? 'ok' : 'falla',
-    PHP_VERSION,
-    'El cotizador necesita PHP 7.4 o superior. Cámbialo en el panel del hosting.'
+    version_compare(PHP_VERSION, '7.4', '>=') ? ($phpViejo ? 'aviso' : 'ok') : 'falla',
+    PHP_VERSION . ($phpViejo ? ' — el código es compatible, pero esta versión ya no recibe parches' : ''),
+    version_compare(PHP_VERSION, '7.4', '<')
+        ? 'El cotizador necesita PHP 7.4 o superior. Cámbialo en el panel del hosting.'
+        : 'Conviene subir a PHP 8 en cPanel (MultiPHP Manager) cuando puedas: 7.4 dejó de tener soporte.'
 );
 
 // --- configuracion ---
