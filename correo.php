@@ -10,6 +10,12 @@
  * Lo usan tanto el formulario de contacto como el cotizador.
  */
 
+// La fecha de los correos y del formulario de contacto: sin esto sale la del
+// servidor, que rara vez coincide con la de Chile.
+if (!ini_get('date.timezone') || date_default_timezone_get() !== 'America/Santiago') {
+    date_default_timezone_set('America/Santiago');
+}
+
 if (!defined('CORREO_CONFIGURADO')) {
     $cfg = __DIR__ . '/correo-config.php';
     if (is_file($cfg)) require_once $cfg;
