@@ -26,7 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['pin'])) {
         session_regenerate_id(true);
         $_SESSION['auth'] = true;
         $_SESSION['intentos'] = 0;
-        header('Location: index.php');
+        // Vuelve a la pagina que se pidio antes del login. Se acepta solo una
+        // lista conocida: con un destino libre esto seria un salto abierto.
+        $destinos = ['revisar.php', 'historial.php'];
+        $volver = in_array($_POST['volver'] ?? '', $destinos, true) ? $_POST['volver'] : 'index.php';
+        header('Location: ' . $volver);
         exit;
     } else {
         usleep(400000);
@@ -69,6 +73,9 @@ if ($autorizado && !empty($_GET['editar']) && id_valido($_GET['editar'])) {
         <img class="acceso-logo" src="../img/Logo bigcleans.png" alt="<?= EMPRESA ?>" />
         <h1>Cotizador de reparaciones</h1>
         <form method="post" autocomplete="off">
+            <?php if (!empty($_GET['volver'])): ?>
+                <input type="hidden" name="volver" value="<?= htmlspecialchars($_GET['volver'], ENT_QUOTES) ?>" />
+            <?php endif; ?>
             <label for="pin">PIN de acceso</label>
             <input type="password" id="pin" name="pin" inputmode="numeric" required autofocus />
             <?php if ($error): ?><p class="error"><?= htmlspecialchars($error) ?></p><?php endif; ?>
@@ -82,6 +89,7 @@ if ($autorizado && !empty($_GET['editar']) && id_valido($_GET['editar'])) {
         <img src="../img/Logo bigcleans.png" alt="<?= EMPRESA ?>" />
         <span><?= $editando ? 'Corrigiendo' : 'Cotizador' ?></span>
         <a class="salir" href="historial.php">Historial</a>
+        <a class="salir" href="revisar.php">Revisar</a>
         <a class="salir" href="?salir=1" title="Cerrar sesión">Salir</a>
     </header>
 

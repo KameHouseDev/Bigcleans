@@ -16,7 +16,7 @@ if ($hayConfig) {
     require __DIR__ . '/config.php';
     iniciar_sesion();
     if (!autorizado()) {
-        header('Location: index.php');
+        header('Location: index.php?volver=revisar.php');
         exit;
     }
 }
