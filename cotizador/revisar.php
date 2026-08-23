@@ -128,14 +128,29 @@ revisar('Conexión cifrada (HTTPS)', $https ? 'ok' : 'aviso',
 // --- correo ---
 $correo = $_GET['correo'] ?? '';
 if ($correo === '1' && $hayConfig) {
-    $t = microtime(true);
-    $ok = @mail(CORREO_OFICINA, 'Prueba del cotizador - ' . EMPRESA,
-        "Si recibes este correo, el envio desde el cotizador funciona.\n\n" . date('d/m/Y H:i'),
-        'From: ' . CORREO_DESDE . "\r\nContent-Type: text/plain; charset=UTF-8");
-    revisar('Envío de correo', $ok ? 'ok' : 'falla',
-        $ok ? 'Enviado a ' . CORREO_OFICINA . ' en ' . round((microtime(true) - $t) * 1000) . ' ms — revisa la bandeja'
-            : 'El servidor rechazó el envío',
-        'El cotizador funciona igual por WhatsApp. Para el correo, pide al hosting los datos SMTP.');
+    $cab = 'From: ' . EMPRESA . ' <' . CORREO_DESDE . '>' . "\r\n"
+         . 'Content-Type: text/plain; charset=UTF-8';
+    $cuerpo = "Si recibes este correo, el envio desde el cotizador funciona.\n\n" . date('d/m/Y H:i');
+
+    // Se prueban las dos formas. Muchos cPanel rechazan mail() a secas y solo
+    // aceptan el envio cuando se declara el remitente del sobre con -f: sin el,
+    // el correo sale como el usuario del sistema y el servidor lo bloquea.
+    $simple   = @mail(CORREO_OFICINA, 'Prueba 1 (simple) - ' . EMPRESA, $cuerpo, $cab);
+    $conSobre = @mail(CORREO_OFICINA, 'Prueba 2 (con -f) - ' . EMPRESA, $cuerpo, $cab, '-f' . CORREO_DESDE);
+
+    if ($simple || $conSobre) {
+        $cual = $simple && $conSobre ? 'las dos formas'
+              : ($simple ? 'solo la forma simple' : 'solo declarando el remitente con -f');
+        revisar('Envío de correo', 'ok',
+            'Aceptado por el servidor (' . $cual . '). Revisa la bandeja de ' . CORREO_OFICINA,
+            $simple ? '' : 'Hay que agregar el quinto parametro a mail(). Avisame y lo dejo aplicado.');
+    } else {
+        revisar('Envío de correo', 'falla',
+            'El servidor rechazó las dos formas de envío',
+            'Este hosting no permite mail(). Hay que enviar por SMTP: pide en cPanel los datos ' .
+            'de la cuenta contacto@bigcleans.cl (servidor, puerto y contraseña). ' .
+            'Ojo: el formulario de contacto del sitio tiene el mismo problema.');
+    }
 } else {
     revisar('Envío de correo', 'aviso', 'Sin comprobar',
         'Es la única prueba que envía algo de verdad, por eso va aparte.');
