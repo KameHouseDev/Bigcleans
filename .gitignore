@@ -24,3 +24,6 @@ cotizador/fotos/*
 
 # Respaldo puntual: git ya guarda la version anterior de cada archivo
 img/banner-anterior.webp
+
+# Credenciales del correo del sitio (repositorio publico)
+correo-config.php
