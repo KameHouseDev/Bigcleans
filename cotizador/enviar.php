@@ -57,21 +57,20 @@ $cuerpo .= "Puedes ver el detalle con las fotos de cada reparación aquí:\n" . 
     . "Cualquier duda, respóndenos este correo o escríbenos al " . TELEFONO . ".\n\n"
     . EMPRESA . "\n" . SITIO . "\n";
 
-$cabeceras = "From: " . EMPRESA . " <" . CORREO_DESDE . ">\r\n"
-    . "Reply-To: " . CORREO_OFICINA . "\r\n"
-    . "Bcc: " . CORREO_OFICINA . "\r\n"
-    . "MIME-Version: 1.0\r\n"
-    . "Content-Type: text/plain; charset=UTF-8\r\n"
-    . "Content-Transfer-Encoding: 8bit\r\n"
-    . "X-Mailer: PHP/" . phpversion();
+require_once __DIR__ . '/../correo.php';
 
-$asunto = 'Cotización de reparaciones ' . pesos($c['total']) . ' - ' . EMPRESA;
+list($ok, $detalle) = enviar_correo(
+    $para,
+    'Cotización de reparaciones ' . pesos($c['total']) . ' - ' . EMPRESA,
+    $cuerpo,
+    CORREO_OFICINA,      // responder-a
+    CORREO_OFICINA       // copia oculta para la oficina
+);
 
-if (!@mail($para, $asunto, $cuerpo, $cabeceras)) {
-    salir(['ok' => false, 'error' => 'El servidor no pudo enviar el correo']);
+if (!$ok) {
+    salir(['ok' => false, 'error' => 'No se pudo enviar: ' . $detalle]);
 }
 
-$c['enviado'] = true;
 $c['enviado_en'] = date('c');
 file_put_contents($archivo, json_encode($c, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 

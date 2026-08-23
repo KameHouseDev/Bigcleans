@@ -1,25 +1,56 @@
-
 <?php
-$nombre = $_POST['nombre'];
-$mail = $_POST['email'];
-$descripcion = $_POST['mensaje'];
-$subject = $_POST['asunto'];
+/**
+ * Formulario de contacto del sitio.
+ *
+ * Antes llamaba a mail() sin mirar el resultado y redirigia siempre a
+ * gracias.html: el visitante leia "Gracias por tu mensaje" aunque el correo
+ * nunca hubiera salido, y nadie se enteraba. El hosting rechaza mail(), asi
+ * que probablemente se perdieron consultas.
+ *
+ * Ahora envia por SMTP y solo agradece si el servidor acepto el mensaje.
+ */
+require_once __DIR__ . '/correo.php';
 
-$header = 'From: ' . $mail . " \r\n";
-$header .= "X-Mailer: PHP/" . phpversion() . " \r\n";
-$header .= "Mime-Version: 1.0 \r\n";
-$header .= "Content-Type: text/plain";
+$nombre  = trim((string)($_POST['nombre'] ?? ''));
+$correo  = trim((string)($_POST['email'] ?? ''));
+$asunto  = trim((string)($_POST['asunto'] ?? ''));
+$mensaje = trim((string)($_POST['mensaje'] ?? ''));
 
-$mensaje = "Este mensaje fue enviado por " . $nombre . ",\r\n";
-$mensaje .= "Su e-mail es: " . $mail . " \r\n";
-$mensaje .= "Su asunto: " . $subject . " \r\n";
-$mensaje .= "Mensaje: " . $descripcion . " \r\n";
-$mensaje .= "Enviado el " . date('d/m/Y', time());
+if ($nombre === '' || $mensaje === '' || !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
+    header('Location: index.html#contact');
+    exit;
+}
 
-$para = 'contacto@bigcleans.cl';
-$asunto = 'Mensaje de mi sitio web';
+$cuerpo = "Nuevo mensaje desde el formulario del sitio
 
-mail($para, $asunto, utf8_decode($mensaje), $header);
+"
+    . "Nombre: " . $nombre . "
+"
+    . "Email : " . $correo . "
+"
+    . "Asunto: " . ($asunto ?: '(sin asunto)') . "
 
-header('Location: gracias.html');
-?>
+"
+    . $mensaje . "
+
+"
+    . "Recibido el " . date('d/m/Y H:i') . "
+";
+
+// El remitente es la cuenta del dominio; el correo del visitante va en
+// responder-a, asi el servidor no lo marca como suplantacion.
+list($ok, $detalle) = enviar_correo(
+    'contacto@bigcleans.cl',
+    'Consulta de ' . $nombre . ($asunto ? ' - ' . $asunto : ''),
+    $cuerpo,
+    $correo
+);
+
+if ($ok) {
+    header('Location: gracias.html');
+    exit;
+}
+
+// Si fallo, se registra y se avisa: nunca mas un "gracias" en falso
+@error_log('[contacto] no se pudo enviar: ' . $detalle);
+header('Location: index.html?error=envio#contact');

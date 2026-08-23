@@ -139,8 +139,10 @@ if (!$editando) {
         . 'Reparaciones: ' . count($limpios) . "\n\n"
         . url_base() . '/ver.php?id=' . $id;
 
-    @mail(CORREO_OFICINA, 'Cotización ' . pesos($total) . ' - ' . ($cot['cliente'] ?: 'sin nombre'),
-        $aviso, 'From: ' . CORREO_DESDE . "\r\nContent-Type: text/plain; charset=UTF-8");
+    require_once __DIR__ . '/../correo.php';
+    enviar_correo(CORREO_OFICINA,
+        'Cotización ' . pesos($total) . ' - ' . ($cot['cliente'] ?: 'sin nombre'),
+        $aviso);
 }
 
 responder([
