@@ -553,3 +553,6 @@ textarea { resize: vertical; }
         color: #7a7a7a;
         font-size: 13px;
     }
+
+.ver-todas { color: #5959ff; text-decoration: none; font-size: 13px; }
+.ver-todas:hover { text-decoration: underline; }

@@ -35,10 +35,38 @@ if (empty($_SESSION['testigo'])) {
     $_SESSION['testigo'] = bin2hex(random_bytes(16));
 }
 
+// Borrado automatico, si esta configurado en config.php
+if (defined('BORRAR_TRAS_MESES') && BORRAR_TRAS_MESES > 0) {
+    $corte = strtotime('-' . BORRAR_TRAS_MESES . ' months');
+    foreach (glob(DIR_DATOS . '/*.json') ?: [] as $f) {
+        $c = json_decode(@file_get_contents($f), true);
+        if (!is_array($c) || empty($c['fecha']) || strtotime($c['fecha']) >= $corte) continue;
+        @unlink($f);
+        $dir = DIR_FOTOS . '/' . $c['id'];
+        if (is_dir($dir)) {
+            foreach (glob($dir . '/*') ?: [] as $x) @unlink($x);
+            @rmdir($dir);
+        }
+    }
+}
+
 $cots = [];
 foreach (glob(DIR_DATOS . '/*.json') ?: [] as $f) {
     $c = json_decode(@file_get_contents($f), true);
     if (is_array($c) && !empty($c['id'])) $cots[] = $c;
+}
+
+// Por defecto solo el ultimo mes: con el tiempo la lista se vuelve larga y lo
+// que se busca casi siempre es reciente. Nada se borra, solo se oculta.
+$todas = !empty($_GET['todas']);
+$antiguas = 0;
+if (!$todas && HISTORIAL_DIAS > 0) {
+    $corte = strtotime('-' . HISTORIAL_DIAS . ' days');
+    $antes = count($cots);
+    $cots = array_values(array_filter($cots, function ($c) use ($corte) {
+        return strtotime($c['fecha'] ?? '') >= $corte;
+    }));
+    $antiguas = $antes - count($cots);
 }
 usort($cots, fn($a, $b) => strcmp($b['fecha'] ?? '', $a['fecha'] ?? ''));
 
@@ -63,7 +91,7 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 <meta name="theme-color" content="#0000ff" />
 <link rel="icon" href="../img/favicon_bigcleans.png" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700|Open+Sans:400,600" rel="stylesheet" />
-<link rel="stylesheet" href="cotizador.css?v=5" />
+<link rel="stylesheet" href="cotizador.css?v=6" />
 </head>
 <body>
 
@@ -82,7 +110,16 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 
     <p class="resumen">
         <?= count($cots) ?> cotizaci<?= count($cots) === 1 ? 'ón' : 'ones' ?> · <?= pesos($suma) ?>
+        <?php if (!$todas && HISTORIAL_DIAS > 0): ?>
+            · últimos <?= HISTORIAL_DIAS ?> días
+        <?php endif; ?>
     </p>
+
+    <?php if ($antiguas): ?>
+        <p class="resumen"><a class="ver-todas" href="historial.php?todas=1<?= $buscar !== '' ? '&amp;q=' . urlencode($buscar) : '' ?>">Ver <?= $antiguas ?> más antigua<?= $antiguas === 1 ? '' : 's' ?></a></p>
+    <?php elseif ($todas): ?>
+        <p class="resumen"><a class="ver-todas" href="historial.php">Ver solo el último mes</a></p>
+    <?php endif; ?>
 
     <?php if (!count($cots)): ?>
         <div class="tarjeta vacio">
