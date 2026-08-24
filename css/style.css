@@ -134,7 +134,7 @@ h6 {
         left: 0;
         right: 0;
         bottom: 0;
-        background: url('../img/Logo bigcleans.png') no-repeat center / contain;
+        background: url('../img/Logo bigcleans.png?v=2') no-repeat center / contain;
         /* Corre una sola vez y se queda lleno: js/preloader.js espera a que termine
            antes de destapar la pagina, para que el llenado siempre se vea completo. */
         animation: preloader-llenar 1.5s cubic-bezier(0.45, 0.05, 0.35, 1) forwards;

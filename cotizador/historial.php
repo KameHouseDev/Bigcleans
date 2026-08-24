@@ -46,7 +46,7 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 <body>
 
 <header class="barra">
-    <img src="../img/Logo bigcleans.png" alt="<?= EMPRESA ?>" />
+    <img src="../img/Logo bigcleans.png?v=2" alt="<?= EMPRESA ?>" />
     <span>Historial</span>
     <a class="salir" href="index.php">Nueva</a>
 </header>

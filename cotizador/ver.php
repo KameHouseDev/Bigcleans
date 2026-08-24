@@ -115,7 +115,7 @@ h1 { font-family: Montserrat; color: #fff; font-size: 23px; margin: 0 0 6px; }
 <div class="hoja">
 
     <div class="cab">
-        <img src="../img/Logo bigcleans.png" alt="<?= EMPRESA ?>" />
+        <img src="../img/Logo bigcleans.png?v=2" alt="<?= EMPRESA ?>" />
         <div class="meta">
             N° <?= $e(strtoupper(substr($id, 0, 6))) ?><br />
             <?= $fecha->format('d/m/Y') ?><br />

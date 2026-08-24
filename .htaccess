@@ -5,3 +5,12 @@
     Header set Expires "0"
   </FilesMatch>
 </IfModule>
+
+# Imagenes y video: se cachean una semana, no para siempre. Sin esto, cambiar
+# un logo o un banner deja a los visitantes recurrentes viendo el anterior
+# durante dias, que fue justo lo que paso con el logo dorado.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(png|jpe?g|webp|gif|svg|mp4|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+</IfModule>

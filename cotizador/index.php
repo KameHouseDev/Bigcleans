@@ -70,7 +70,7 @@ if ($autorizado && !empty($_GET['editar']) && id_valido($_GET['editar'])) {
 <?php if (!$autorizado): ?>
 
     <div class="acceso">
-        <img class="acceso-logo" src="../img/Logo bigcleans.png" alt="<?= EMPRESA ?>" />
+        <img class="acceso-logo" src="../img/Logo bigcleans.png?v=2" alt="<?= EMPRESA ?>" />
         <h1>Cotizador de reparaciones</h1>
         <form method="post" autocomplete="off">
             <?php if (!empty($_GET['volver'])): ?>
@@ -86,7 +86,7 @@ if ($autorizado && !empty($_GET['editar']) && id_valido($_GET['editar'])) {
 <?php else: ?>
 
     <header class="barra">
-        <img src="../img/Logo bigcleans.png" alt="<?= EMPRESA ?>" />
+        <img src="../img/Logo bigcleans.png?v=2" alt="<?= EMPRESA ?>" />
         <span><?= $editando ? 'Corrigiendo' : 'Cotizador' ?></span>
         <a class="salir" href="historial.php">Historial</a>
         <a class="salir" href="revisar.php">Revisar</a>
