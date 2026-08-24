@@ -89,7 +89,7 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="robots" content="noindex, nofollow" />
 <meta name="theme-color" content="#0000ff" />
-<link rel="icon" href="../img/favicon_bigcleans.png" />
+<link rel="icon" href="../img/favicon_bigcleans.png?v=2" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700|Open+Sans:400,600" rel="stylesheet" />
 <link rel="stylesheet" href="cotizador.css?v=6" />
 </head>
