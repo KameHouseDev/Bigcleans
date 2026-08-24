@@ -337,6 +337,9 @@
             $('#' + id).value = '';
         });
         actualizar();
+        // Deja una reparacion vacia lista: si no, la pantalla queda sin nada
+        // que llenar y hay que apretar "Agregar" antes de poder escribir.
+        agregarItem();
     }
 
     /* ---------- envio ---------- */

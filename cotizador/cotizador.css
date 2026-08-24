@@ -508,3 +508,19 @@ textarea { resize: vertical; }
     .foto, .agregar-foto { width: 110px; }
     .foto { height: 110px; }
 }
+
+.borrar-form { flex: 1; display: flex; }
+
+    .borrar-form button {
+        flex: 1;
+        padding: 9px;
+        border: 1px solid #2a2a2a;
+        border-radius: 7px;
+        background: transparent;
+        color: #8a6a6a;
+        font-family: inherit;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .borrar-form button:hover { border-color: #b03030; color: #ff6b6b; }

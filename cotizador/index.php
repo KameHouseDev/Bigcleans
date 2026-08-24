@@ -63,7 +63,7 @@ if ($autorizado && !empty($_GET['editar']) && id_valido($_GET['editar'])) {
 <meta name="theme-color" content="#0000ff" />
 <link rel="icon" href="../img/favicon_bigcleans.png" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700|Open+Sans:400,600" rel="stylesheet" />
-<link rel="stylesheet" href="cotizador.css?v=3" />
+<link rel="stylesheet" href="cotizador.css?v=4" />
 </head>
 <body>
 
@@ -205,7 +205,7 @@ if ($autorizado && !empty($_GET['editar']) && id_valido($_GET['editar'])) {
             editando: <?= $editando ? json_encode($editando, JSON_UNESCAPED_UNICODE) : 'null' ?>
         };
     </script>
-    <script src="cotizador.js?v=3"></script>
+    <script src="cotizador.js?v=4"></script>
 
 <?php endif; ?>
 

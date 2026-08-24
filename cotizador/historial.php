@@ -13,6 +13,28 @@ if (!autorizado()) {
     exit;
 }
 
+// Borrado. Va por POST y con testigo de sesion: por GET, cualquier
+// precarga del navegador o un enlace compartido podria borrar sin querer.
+if (!empty($_POST['borrar'])) {
+    $id = (string)$_POST['borrar'];
+    $testigo = (string)($_POST['testigo'] ?? '');
+
+    if (id_valido($id) && hash_equals($_SESSION['testigo'] ?? '', $testigo)) {
+        @unlink(DIR_DATOS . '/' . $id . '.json');
+        $dirFotos = DIR_FOTOS . '/' . $id;
+        if (is_dir($dirFotos)) {
+            foreach (glob($dirFotos . '/*') ?: [] as $f) @unlink($f);
+            @rmdir($dirFotos);
+        }
+    }
+    header('Location: historial.php' . (!empty($_POST['q']) ? '?q=' . urlencode($_POST['q']) : ''));
+    exit;
+}
+
+if (empty($_SESSION['testigo'])) {
+    $_SESSION['testigo'] = bin2hex(random_bytes(16));
+}
+
 $cots = [];
 foreach (glob(DIR_DATOS . '/*.json') ?: [] as $f) {
     $c = json_decode(@file_get_contents($f), true);
@@ -41,7 +63,7 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 <meta name="theme-color" content="#0000ff" />
 <link rel="icon" href="../img/favicon_bigcleans.png" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700|Open+Sans:400,600" rel="stylesheet" />
-<link rel="stylesheet" href="cotizador.css?v=3" />
+<link rel="stylesheet" href="cotizador.css?v=4" />
 </head>
 <body>
 
@@ -95,6 +117,13 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
             <?php if (!empty($c['telefono'])): ?>
                 <a href="https://wa.me/<?= $e(preg_replace('/\D/', '', $c['telefono'])) ?>" target="_blank" rel="noopener">WhatsApp</a>
             <?php endif; ?>
+            <form method="post" class="borrar-form"
+                  onsubmit="return confirm('¿Borrar esta cotización y sus fotos? No se puede deshacer.');">
+                <input type="hidden" name="borrar" value="<?= $e($c['id']) ?>" />
+                <input type="hidden" name="testigo" value="<?= $e($_SESSION['testigo']) ?>" />
+                <input type="hidden" name="q" value="<?= $e($buscar) ?>" />
+                <button type="submit" title="Borrar">Borrar</button>
+            </form>
         </div>
     </article>
     <?php endforeach; ?>
