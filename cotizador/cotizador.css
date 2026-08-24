@@ -524,3 +524,32 @@ textarea { resize: vertical; }
     }
 
     .borrar-form button:hover { border-color: #b03030; color: #ff6b6b; }
+
+/* Miniaturas en el historial: reconocer la cotizacion de un vistazo es mas
+   rapido que leer la direccion, sobre todo en el telefono. */
+.fila-fotos {
+    display: flex;
+    gap: 6px;
+    margin-top: 11px;
+}
+
+    .fila-fotos img {
+        width: 54px;
+        height: 54px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #262626;
+        display: block;
+    }
+
+    .fila-fotos .mas {
+        width: 54px;
+        height: 54px;
+        border-radius: 6px;
+        border: 1px dashed #333;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #7a7a7a;
+        font-size: 13px;
+    }

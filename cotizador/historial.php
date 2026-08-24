@@ -63,7 +63,7 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 <meta name="theme-color" content="#0000ff" />
 <link rel="icon" href="../img/favicon_bigcleans.png" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700|Open+Sans:400,600" rel="stylesheet" />
-<link rel="stylesheet" href="cotizador.css?v=4" />
+<link rel="stylesheet" href="cotizador.css?v=5" />
 </head>
 <body>
 
@@ -81,7 +81,7 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
     </form>
 
     <p class="resumen">
-        <?= count($cots) ?> cotizacion<?= count($cots) === 1 ? '' : 'es' ?> · <?= pesos($suma) ?>
+        <?= count($cots) ?> cotizaci<?= count($cots) === 1 ? 'ón' : 'ones' ?> · <?= pesos($suma) ?>
     </p>
 
     <?php if (!count($cots)): ?>
@@ -93,8 +93,12 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 
     <?php foreach ($cots as $c):
         $f = new DateTime($c['fecha']);
-        $nfotos = 0;
-        foreach ($c['items'] as $it) $nfotos += count(fotos_de($it));
+        $fotos = [];
+        // Ojo con el nombre: $f ya guarda la fecha de la cotizacion
+        foreach ($c['items'] as $it) {
+            foreach (fotos_de($it) as $foto) $fotos[] = $foto;
+        }
+        $nfotos = count($fotos);
     ?>
     <article class="fila-cot">
         <div class="fila-cab">
@@ -106,11 +110,19 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
         </div>
         <p class="fila-meta">
             <?= $f->format('d/m/Y H:i') ?>
-            · <?= count($c['items']) ?> reparación<?= count($c['items']) === 1 ? '' : 'es' ?>
+            · <?= count($c['items']) ?> reparaci<?= count($c['items']) === 1 ? 'ón' : 'ones' ?>
             · <?= $nfotos ?> foto<?= $nfotos === 1 ? '' : 's' ?>
             <?php if (!empty($c['enviado'])): ?><span class="tag ok">enviada</span><?php endif; ?>
             <?php if (!empty($c['actualizada'])): ?><span class="tag">corregida</span><?php endif; ?>
         </p>
+        <?php if ($nfotos): ?>
+        <div class="fila-fotos">
+            <?php foreach (array_slice($fotos, 0, 4) as $miniatura): ?>
+                <img loading="lazy" src="fotos/<?= $e($c['id']) ?>/<?= $e($miniatura) ?>" alt="" />
+            <?php endforeach; ?>
+            <?php if ($nfotos > 4): ?><span class="mas">+<?= $nfotos - 4 ?></span><?php endif; ?>
+        </div>
+        <?php endif; ?>
         <div class="fila-acciones">
             <a href="ver.php?id=<?= $e($c['id']) ?>" target="_blank" rel="noopener">Ver</a>
             <a href="index.php?editar=<?= $e($c['id']) ?>">Corregir</a>

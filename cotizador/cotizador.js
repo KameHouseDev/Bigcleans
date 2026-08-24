@@ -392,8 +392,8 @@
         var url = res.url;
 
         $('#modal-titulo').textContent = res.editado ? 'Cotización corregida' : 'Cotización lista';
-        $('#modal-sub').textContent = validos.length + ' reparación' +
-            (validos.length === 1 ? '' : 'es') + ' · ' + pesos(total());
+        $('#modal-sub').textContent = validos.length +
+            (validos.length === 1 ? ' reparación' : ' reparaciones') + ' · ' + pesos(total());
         $('#enlace').value = url;
         $('#btn-ver').href = url;
 

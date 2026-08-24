@@ -63,7 +63,7 @@ if ($autorizado && !empty($_GET['editar']) && id_valido($_GET['editar'])) {
 <meta name="theme-color" content="#0000ff" />
 <link rel="icon" href="../img/favicon_bigcleans.png" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:600,700|Open+Sans:400,600" rel="stylesheet" />
-<link rel="stylesheet" href="cotizador.css?v=4" />
+<link rel="stylesheet" href="cotizador.css?v=5" />
 </head>
 <body>
 
