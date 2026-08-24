@@ -12,6 +12,7 @@
     var MAX_FOTOS = CFG.maxFotosItem || 4;
     var LADO = 1400;           // px del lado mayor
     var CALIDAD = 0.72;
+    var MINI = 200;            // lado mayor de la miniatura del historial
     var BORRADOR = 'bigcleans-cotizacion';
 
     var items = [];            // { id, descripcion, precio, fotos: [] }
@@ -66,9 +67,21 @@
                     ctx.fillStyle = '#fff';        // el JPEG no tiene transparencia
                     ctx.fillRect(0, 0, w, h);
                     ctx.drawImage(img, 0, 0, w, h);
-                    var mini = lienzo.toDataURL('image/jpeg', 0.5);
                     lienzo.toBlob(function (blob) {
-                        resolver({ blob: blob, preview: mini });
+                        // Miniatura aparte: el historial mostraba la foto completa
+                        // achicada por CSS, o sea 150 KB para un cuadro de 54 px.
+                        var chico = document.createElement('canvas');
+                        var e2 = Math.min(1, MINI / Math.max(w, h));
+                        chico.width = Math.round(w * e2);
+                        chico.height = Math.round(h * e2);
+                        var c2 = chico.getContext('2d');
+                        c2.fillStyle = '#fff';
+                        c2.fillRect(0, 0, chico.width, chico.height);
+                        c2.drawImage(lienzo, 0, 0, chico.width, chico.height);
+                        chico.toBlob(function (blobMini) {
+                            resolver({ blob: blob, mini: blobMini,
+                                       preview: chico.toDataURL('image/jpeg', 0.6) });
+                        }, 'image/jpeg', 0.65);
                     }, 'image/jpeg', CALIDAD);
                 };
                 img.src = lector.result;
@@ -77,9 +90,10 @@
         });
     }
 
-    function subir(blob) {
+    function subir(blob, mini) {
         var datos = new FormData();
         datos.append('foto', blob, 'foto.jpg');
+        if (mini) datos.append('mini', mini, 'mini.jpg');
         return fetch('subir.php', { method: 'POST', body: datos })
             .then(function (r) { return r.json(); })
             .then(function (res) {
@@ -148,7 +162,7 @@
         foto.estado = 'subiendo';
         pintarFotos(nodo, item);
         actualizar();
-        subir(foto.blob).then(function (res) {
+        subir(foto.blob, foto.mini).then(function (res) {
             foto.estado = 'ok';
             foto.token = res.token;
             pintarFotos(nodo, item);
@@ -190,9 +204,10 @@
 
             redimensionar(archivo).then(function (r) {
                 foto.blob = r.blob;
+                foto.mini = r.mini;
                 foto.preview = r.preview;
                 pintarFotos(nodo, item);
-                return subir(r.blob);
+                return subir(r.blob, r.mini);
             }).then(function (res) {
                 foto.estado = 'ok';
                 foto.token = res.token;

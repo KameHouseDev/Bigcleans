@@ -72,6 +72,7 @@ foreach ($items as $n => $item) {
             if ($nombre !== '' && is_file($dirFotos . '/' . $nombre)) {
                 $fotos[] = $nombre;
                 $usadas[] = $nombre;
+                $usadas[] = substr($nombre, 0, -4) . '-mini.jpg';
             }
         } elseif ($tipo === 'nueva') {
             $token = (string)($ref['token'] ?? '');
@@ -82,6 +83,12 @@ foreach ($items as $n => $item) {
             if (@rename($origen, $dirFotos . '/' . $nombre)) {
                 $fotos[] = $nombre;
                 $usadas[] = $nombre;
+                // La miniatura acompaña a su foto, con el mismo nombre y sufijo
+                $mini = DIR_TMP . '/' . $token . '-mini.jpg';
+                if (is_file($mini)) {
+                    $nombreMini = substr($nombre, 0, -4) . '-mini.jpg';
+                    if (@rename($mini, $dirFotos . '/' . $nombreMini)) $usadas[] = $nombreMini;
+                }
             }
         }
     }

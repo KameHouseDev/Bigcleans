@@ -61,6 +61,15 @@ if (!move_uploaded_file($f['tmp_name'], $destino)) {
     responder(['ok' => false, 'error' => 'No se pudo guardar la foto'], 500);
 }
 
+// La miniatura viaja junto a la foto: la usa el historial, que si no tendria
+// que descargar la imagen completa para un cuadro de 54 px.
+if (isset($_FILES['mini']) && $_FILES['mini']['error'] === UPLOAD_ERR_OK) {
+    $infoMini = @getimagesize($_FILES['mini']['tmp_name']);
+    if ($infoMini !== false && $infoMini[2] === IMAGETYPE_JPEG) {
+        @move_uploaded_file($_FILES['mini']['tmp_name'], DIR_TMP . '/' . $token . '-mini.jpg');
+    }
+}
+
 responder([
     'ok'    => true,
     'token' => $token,

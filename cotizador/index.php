@@ -205,7 +205,7 @@ if ($autorizado && !empty($_GET['editar']) && id_valido($_GET['editar'])) {
             editando: <?= $editando ? json_encode($editando, JSON_UNESCAPED_UNICODE) : 'null' ?>
         };
     </script>
-    <script src="cotizador.js?v=4"></script>
+    <script src="cotizador.js?v=5"></script>
 
 <?php endif; ?>
 

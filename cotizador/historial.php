@@ -118,7 +118,7 @@ $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
         <?php if ($nfotos): ?>
         <div class="fila-fotos">
             <?php foreach (array_slice($fotos, 0, 4) as $miniatura): ?>
-                <img loading="lazy" src="fotos/<?= $e($c['id']) ?>/<?= $e($miniatura) ?>" alt="" />
+                <img loading="lazy" src="fotos/<?= $e($c['id']) ?>/<?= $e(ruta_miniatura($c['id'], $miniatura)) ?>" alt="" />
             <?php endforeach; ?>
             <?php if ($nfotos > 4): ?><span class="mas">+<?= $nfotos - 4 ?></span><?php endif; ?>
         </div>
